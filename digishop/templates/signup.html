@@ -1,0 +1,167 @@
+<html>
+<head>
+    <title>Signup - DigiShop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+        body{
+            font-family: 'Alata', sans-serif;
+        }
+        h1{
+            text-align:center;
+        }
+        h2{
+            text-align:center;
+        }
+        h3{
+            width: fit-content;
+            float: left;
+            padding-left: 10px;
+        }
+        .login-form-area{
+            width: 25vw;
+            margin-left: 25vw;
+        }
+        input{
+            height: 35px;
+            width: 100%;
+            min-width: 200px;
+            margin-top: 25px;
+        }
+        #login-submit{
+            width: 50%;
+            min-width: 150px;
+        }
+        #username-status-box{
+            min-width: 250px;
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        #password-status-box{
+            min-width: 250px;
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        .loader {
+            float: left;
+          border: 8px solid white;
+          border-top: 8px solid black;
+            border-bottom: 8px solid black;
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        #password-text{
+            opacity: 25%;
+        }
+        #login-submit-status-box{
+            min-width: 250px;
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#login-submit').click(function(){
+
+                $.ajax({
+                    method: "POST",
+                    url: "/signup/finalize/",
+                    data:{
+                        "csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val(),
+                        "username": $("#username").val(),
+                        "password": $("#password").val()
+                    },
+                    success: function(result){
+                        if (result == "success"){
+                            window.location.href = "/"
+                        }
+                        else{
+                            alert(result)
+                        }
+                    }
+                })
+            })
+            $("#username").change(function(){
+                if ($(this).val().length > 3){
+                    $("#username-status-box").html("<div class=\"loader\"></div><h3>Checking Username</h3>")
+                    $.ajax({
+                        url: "/check/username/",
+                        data: {
+                            "username": $("#username").val()
+                        },
+                        success: function(result){
+                            if (result == "valid"){
+                                $("#username-status-box").html("<h3>Username Taken</h3>")
+                                 $('#password').attr("disabled", true);
+                                $('#login-submit').attr("disabled", true);
+                                $("#password-text").css("opacity", ".5");
+                            }
+                            if (result == "invalid"){
+                                $("#username-status-box").html("<h3>Username Available</h3>")
+                                $('#password').attr("disabled", false);
+                                $("#password-text").css("opacity", "1");
+                                $("#password").keydown(function(){
+                                    if ($("#password").val().length >= 6){
+                                        $("#password-text").css("opacity", ".5");
+                                        $('#login-submit').attr("disabled", false);
+                                    }
+                                    if ($("#password").val().length < 6){
+                                        $("#password-text").css("opacity", "1");
+                                        $('#login-submit').attr("disabled", true);
+                                    }
+                                })
+
+                            }
+                        }
+                    })
+                }
+                if ($(this).val().length <= 3){
+                    $("#username-status-box").html("<h3>Username Too Short</h3>")
+                    $('#password').attr("disabled", true);
+                    $('#login-submit').attr("disabled", true);
+                    $("#password-text").css("opacity", ".5");
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<h1>
+    Welcome to DigiShop
+</h1>
+<h2>
+    Sign Up
+</h2>
+<div class="login-form-area">
+    {% csrf_token %}
+    <input type="text" id="username" placeholder="Username">
+    <div id="username-status-box">
+
+    </div>
+    <br>
+    <input type="password" id="password" placeholder="Password" disabled="true">
+    <div id="password-status-box">
+        <h4 id="password-text">6 Characters Minimum</h4>
+    </div>
+    <br>
+    <input type="submit" id="login-submit"  disabled="true">
+    <div id="login-submit-status-box">
+    <br>
+    <a href="/login/">Already have an account? Log in here.</a>
+</div>
+
+</body>
+</html>

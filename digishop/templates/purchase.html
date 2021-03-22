@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>Purchase - DigiShop</title>
+<style>
+         @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+     body{
+        font-family: 'Alata', sans-serif;
+     }
+     h1{
+        text-align:center;
+     }
+     h2{
+        text-align:center;
+     }
+     #purchase-box{
+         border: solid 1px black;
+         width: 50%;
+         margin-left: auto;
+         margin-right: auto;
+     }
+     .title{
+         text-align: center;
+     }
+     .text{
+         text-align: center;
+     }
+     #statistics-table{
+         width: 100%;
+     }
+     #purchase-now-button{
+         width: 150px;
+         margin-left: calc(50% - 75px);
+     }
+     .loader {
+         margin-top: 15px;
+         margin-left: auto;
+         margin-right: auto;
+         border: 8px solid white;
+         border-top: 8px solid black;
+         border-bottom: 8px solid black;
+         border-radius: 50%;
+         width: 32px;
+         height: 32px;
+         animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+         }
+         @keyframes spin {
+         0% { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+         }
+</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#purchase-now-button").click(function(){
+                $(this).attr("disabled", "true")
+                $(this).html("Processing...")
+                $("#loader-spot").html("<div class='loader'></div>")
+                window.location.href = '/purchase/paypal/?listingId='+$("#listing-id-save").val()
+            })
+            $.ajax({
+                url: "/moment/statistics/",
+                data: {
+                    'momentId':$("#moment-id-save").val()
+                },
+                success: function(result){
+                    $(".moment-stats").html(`<table id='statistics-table'>
+<tr><th>Set Name</th><th>${result['setName']}</th></tr>
+<tr><th>Series No.</th><th>${result['seriesNo']}</th></tr>
+<tr><th>Player Team</th><th>${result['playerTeam']}</th></tr>
+<tr><th>Play Category</th><th>${result['playCategory']}</th></tr>
+<tr><th>Circulation Count</th><th>${result['circulationCount']}</th></tr>
+</table>`)
+
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<input type="hidden" id="moment-id-save" value="{{momentId}}">
+<input type="hidden" id="listing-id-save" value="{{listingId}}">
+<h1>DigiShop</h1>
+<h2>Confirm Purchase</h2>
+<div id="purchase-box">
+    <p class="title">{{momentTitle}}</p>
+    <p class="text">${{momentPrice}}</p>
+    <p class="text">Serial: {{serialNumber}}</p>
+    <button id="purchase-now-button">Purchase</button>
+    <div id="loader-spot"></div>
+    <div class="moment-stats">
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+from django.contrib import admin
+from django.urls import path,include
+from . import views
+
+urlpatterns = [
+    path('',views.home, name="DigiShop Homepage"),
+    path('login/',views.login, name="DigiShop Login"),
+    path('signup/',views.signup, name="DigiShop Signup"),
+    path('logout/',views.logout, name="DigiShop Logout"),
+    path('signup/finalize/',views.finalize_signup, name="DigiShop Account Creation"),
+    path('check/username/',views.test_username, name="Test Username for login"),
+    path('check/login/',views.test_login, name="Test Username for login"),
+    path('query/',views.query_1, name="Query url"),
+    path('moment/', views.moment_page, name="Moment page"),
+    path('moment/statistics/', views.statistics_table, name="Data for moment statistics"),
+    path('moment/listings/', views.listings_table, name="Data for moment listings"),
+    path('moment/listings/sold/', views.sold_listings_table, name="Data for moment listings that have sold"),
+    path('purchase/', views.purchase_page, name="Purchase Page"),
+    path('purchase/paypal/', views.generate_payment_paypal, name="PayPal Purchase page"),
+    path('purchase/complete/', views.make_payment, name="Finalizing PayPal purchase"),
+    path('purchase/complete/submit/', views.finalize_payment, name="Finalizing PayPal purchase"),
+    path('account/', views.user_account, name="User account page"),
+    path('account/data/', views.retrieve_account_data, name="User account page infomation"),
+    path('account/data/sold/', views.retrieve_account_sold_data, name="Retreives sold listings"),
+    path('account/data/pending/', views.retrieve_account_pending_withdraws, name="Grabs pending withdrawls"),
+    path('account/update/email/', views.update_user_email, name="Updates user email"),
+    path('listing/', views.listing_page, name="Listing page for sellers"),
+    path('listing/username/', views.step_1_search_username_listings, name="Grabbing all moments owned by a username"),
+    path('listing/await/moment/', views.step_2a_await_item, name="Grabbing an account to await a moment"),
+    path('listing/await/moment/check/', views.step_2b_await_item, name="Checking if moment has been received"),
+    path('listing/price/', views.step_3_finalize_price, name="Getting listing price"),
+    path('listing/price/update/', views.update_listing_price, name="Update listing price"),
+    path('listing/delist/', views.remove_listing_and_return_moment, name="Taking down a listing"),
+    path('withdraw/', views.wallet_withdraw, name="Withdraw from wallet"),
+]

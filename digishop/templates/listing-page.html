@@ -1,0 +1,679 @@
+<html>
+
+<head>
+    <title>Listing - DigiShop</title>
+  <style>
+              @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+
+  body{
+      font-family: 'Alata', sans-serif;
+    margin: 0;
+  }
+  #left-side{
+      padding-top:20px;
+    width: 15%;
+    height: 100%;
+    float: left;
+  }
+  #section1{
+    position: relative;
+    z-index: 99;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+  }
+  #section1-2{
+    width: 5px;
+    height: 110px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5px;
+  }
+   #section2{
+    position: relative;
+    z-index: 99;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5px;
+  }
+  #section2-3{
+    width: 5px;
+    height: 110px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5px;
+  }
+  #section3{
+    position: relative;
+    z-index: 99;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5px;
+  }
+  .active{
+    background-color: #2EA300;
+  }
+  .inactive{
+    background-color: #437F97;
+  }
+  .awaiting{
+    animation: awaiting 3s infinite ease-in-out;
+  }
+  #right-side{
+    width: 80%;
+    height: 100%;
+    float: right;
+  }
+  #container{
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+      min-width: 600px;
+  }
+  .hero-image{
+      width: 96px;
+  }
+  .moment{
+      padding: 15px 15px 15px 15px;
+      margin-top: 30px;
+      border: solid 2px #adadad;
+      border-radius: 10px;
+      width: 150px;
+      margin-left: 5px;
+      margin-right: 5px;
+  }
+  .moment:hover{
+      padding: 15px 15px 15px 15px;
+      margin-top: 30px;
+      border: solid 2px grey;
+      border-radius: 10px;
+  }
+
+  .selected{
+      padding: 15px 15px 15px 15px;
+      margin-top: 30px;
+      border: solid 2px black;
+      border-radius: 10px;
+      width: 340px;
+      margin-left: 5px;
+      margin-right: 5px;
+  }
+  .selected2{
+      padding: 15px 15px 15px 15px;
+      margin-top: 30px;
+      border: solid 2px black;
+      border-radius: 10px;
+      width: 340px;
+  }
+  #listing-username-moment-select{
+    display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+  }
+  #listing-username-input{
+      width: 250px;
+  }
+  #next-step-moment-select{
+      margin-top: 15px;
+  }
+  #send-to-username-box{
+      padding: 10px 25px 10px 25px;
+      border: solid 2px black;
+      border-radius: 10px;
+      width: 340px;
+  }
+   #send-to-username-box p{
+      width: fit-content;
+  }
+  .loader {
+         margin-top: 15px;
+         margin-left: auto;
+         margin-right: auto;
+         border: 8px solid white;
+         border-top: 8px solid black;
+         border-bottom: 8px solid black;
+         border-radius: 50%;
+         width: 32px;
+         height: 32px;
+         animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+         }
+         @keyframes spin {
+         0% { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+         }
+  @keyframes awaiting{
+    0% {
+         transform: scale(1);
+      }
+      50%{
+          transform: scale(1.5);
+      }
+      100% {
+         transform: scale(1);
+      }
+  }
+  .info-circle{
+      width: fit-content;
+      padding: 5px 5px 5px 5px;
+      border-radius: 50%;
+      font-size: 1em;
+  }
+ .info-circle-content{
+     width: 220px;
+     height: 25px;
+     border: solid 1px black;
+     border-radius: 5px;
+     padding: 0px 5px 0px 5px;
+     margin-left: 5px;
+ }
+  </style>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,800&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            margin: 0;
+            min-width: 500px;
+        }
+
+        .navbar-container {
+            box-shadow: 0px 10px 10px -10px #000000, 5px 5px 20px 1px rgba(0,0,0,0);
+            width: 100%;
+            height: auto;
+            background-color: white;
+            display: flex;
+        }
+
+        #title {
+            font-weight: 900;
+            font-style: italic;
+            padding-left: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+            height: auto;
+            font-size: 2em;
+        }
+
+        #search-bar {
+            border-radius: 5px;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 15px;
+            margin-right: 15px;
+            height: 2.5em;
+            width: auto;
+            min-width: 125px;
+            flex-grow: 1;
+            border: solid 1px black;
+            background-color: white;
+        }
+
+        #bar-seg-1 {
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #bar-seg-2 {
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #user-account {
+            float: right;
+            height: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        #user-account img {
+            height: 3em;
+        }
+
+        #suggestions-box {
+            text-align: center;
+            width: 80%;
+            margin-left: 10%;
+            height: auto;
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .suggestion {
+        }
+
+        .loader {
+            margin-top: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 8px solid white;
+            border-top: 8px solid black;
+            border-bottom: 8px solid black;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+<script>
+
+
+
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function step3(){
+           $("#step-information").html(`<h2>What price do you want to list at?</h2>
+<table id="pricing-table">
+    <tr>
+        <td>List Price</td>
+        <td><input id="list-price-input" type="number" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" ></td>
+    </tr>
+    <tr>
+        <td>Fees<div class="info-circle">&#x1F6C8;<span class="info-circle-content">8% + $0.30</span></div></td>
+        <td><input id="list-price-fees" type="number" readonly></td>
+    </tr>
+    <tr>
+        <td>Payout</td>
+        <td><input id="list-price-payout" type="number" readonly></td>
+    </tr>
+</table>
+<button id="finalize-listing-button">Submit Price and List</button>
+<div id="loading-container"></div>`)
+            $("#list-price-input").change(function(){
+                $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+            })
+            $("#list-price-input").keyup(function(){
+                $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+            })
+            $("#finalize-listing-button").click(function(){
+                $("#loading-container").html(`<div class="loader"></div>`)
+                $.ajax({
+                    url: "/listing/price/",
+                    method: "post",
+                    data: {
+                        "csrfmiddlewaretoken": '{{ csrf_token }}',
+                        "finalPrice": $("#list-price-input").val()
+                    },
+                    success: function(result){
+                        if (result['status'] == "success"){
+                            $("#step-information").html(`<h2>Moment Successfully Listed!</h2>
+<a href="/moment/?momentId=${result["momentId"]}">Click here to see moment page.</a>`)
+                        }
+                        else{
+                            alert(result['status'])
+                        }
+                    }
+                })
+            })
+        }
+    </script>
+    <script>
+        function step2(id, idMAIN){
+            $.ajax({
+                url: '/listing/await/moment/',
+                method: "POST",
+                data: {
+                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                    "listing-moment-id": id,
+                    "listing-moment-idMAIN": idMAIN
+                },
+                success: function(result){
+                    $("#step-information").html(`<h2>Send your item to the username below</h2>
+<h3>You have 5 minutes before the listing is cancelled</h3>
+<div id="send-to-username-box"><p>${result['name']}</p></div>
+<div class="selected2">
+<img class="hero-image" src="${$("#img-keeper").val()}">
+<p class="namesa">${$("#name-keeper").val()}</p>
+<p class="datesa">${$("#date-keeper").val()}</p>
+<p class="raresa">${$("#rare-keeper").val()}</p>
+</div>
+<div id="next-step-container"><div class="loader"></div></div></div>`)
+
+                var intervalFunc = setInterval(function(){
+                    $.ajax({
+                        url: "/listing/await/moment/check/",
+                        success: function(result){
+                            if (result['await'] == false){
+                                clearInterval(intervalFunc);
+                                $("#next-step-container").html("<h2>"+result['message']+"</h2>")
+                                if (result['received'] == true){
+                                    $(`<button id="next-step-moment-send">Next Step</button>`).appendTo("#next-step-container")
+                                    $("#next-step-moment-send").click(function(){
+                                      $("#section1").attr("class", "active")
+                                      $("#section1-2").attr("class", "active")
+                                      $("#section2").attr("class", "active")
+                                      $("#section2-3").attr("class", "active")
+                                      $("#section3").attr("class", "active awaiting")
+                                        $("#step-information").html('<div class="loader"></div>')
+                                        step3();
+
+                                    })
+                                }
+                            }
+
+                        },
+                        error: function(){
+                            clearInterval(intervalFunc);
+                        }
+                    })
+                }, 5000);
+
+                }
+            })
+        }
+    </script>
+  <script>
+  $(document).ready(function(){
+
+
+      $("#listing-username-post").click(function(){
+          $("#listing-username-moment-select").html('<div class="loader"></div>')
+          $.ajax({
+              url: "/listing/username/",
+              dataType: "json",
+              data: {
+                  "listing-username-input": $("#listing-username-input").val()
+              },
+              success: function(result){
+                  $("#spare-container").html('<h3>Search for players</h3><input type="text" id="moment-filter">')
+                  $("#moment-filter").keyup(function(){
+
+                      $("#listing-username-moment-select").html('')
+                  var i;
+                  for (i=0;i<result['user'].length;i++){
+                      if (result['user'][i]['name'].toLowerCase().includes($(this).val().toLowerCase()) == true){
+                          $(`<div data-id="${result['user'][i]['idMAIN']}" id="${result['user'][i]['id']}" class="moment">
+<img class="hero-image" src="${result['user'][i]['assetPrefix']}Hero_2880_2880_Black.jpg">
+<p class="namesa">${result['user'][i]['name']}</p>
+<p class="datesa">${result['user'][i]['date']}</p>
+<p class="raresa">${result['user'][i]['serialNumber']}/${result['user'][i]['serialNumberCap']}</p>
+<div class="next-step-container"></div>
+</div>`).appendTo("#listing-username-moment-select")
+                      }
+
+                  }
+
+
+                      $(".moment").click(function(){
+                      $(".next-step-container").html("")
+                      $(this).find(".next-step-container").html('<button id="next-step-moment-select">Select Moment</button>')
+                      $(".selected").attr("class", "moment")
+                      $(this).attr("class","selected")
+                      $("#next-step-moment-select").click(function (){
+                          $("#section1").attr("class", "active")
+                          $("#section1-2").attr("class", "active")
+                          $("#section2").attr("class", "active awaiting")
+                          $("#section2-3").attr("class", "inactive")
+                          $("#section3").attr("class", "inactive")
+                          $("#step-information").html("<div class='loader'></div>")
+                          $("#img-keeper").val($(this).parent().parent().find(".hero-image").attr("src"))
+                          $("#name-keeper").val($(this).parent().parent().find(".namesa").html())
+                          $("#date-keeper").val($(this).parent().parent().find(".datesa").html())
+                          $("#rare-keeper").val($(this).parent().parent().find(".raresa").html())
+                          step2($(this).parent().parent().attr("id"),$(this).parent().parent().attr("data-id"))
+                      })
+                  })
+                  })
+                  $("#listing-username-moment-select").html('')
+                  var i;
+                  for (i=0;i<result['user'].length;i++){
+                        $(`<div data-id="${result['user'][i]['idMAIN']}" id="${result['user'][i]['id']}" class="moment">
+<img class="hero-image" src="${result['user'][i]['assetPrefix']}Hero_2880_2880_Black.jpg">
+<p class="namesa">${result['user'][i]['name']}</p>
+<p class="datesa">${result['user'][i]['date']}</p>
+<p class="raresa">${result['user'][i]['serialNumber']}/${result['user'][i]['serialNumberCap']}</p>
+<div class="next-step-container"></div>
+</div>`).appendTo("#listing-username-moment-select")
+                  }
+                  $(".moment").click(function(){
+                      $(".next-step-container").html("")
+                      $(this).find(".next-step-container").html('<button id="next-step-moment-select">Select Moment</button>')
+                      $(".selected").attr("class", "moment")
+                      $(this).attr("class","selected")
+                      $("#next-step-moment-select").click(function (){
+                          $("#section1").attr("class", "active")
+                          $("#section1-2").attr("class", "active")
+                          $("#section2").attr("class", "active awaiting")
+                          $("#section2-3").attr("class", "inactive")
+                          $("#section3").attr("class", "inactive")
+                          $("#step-information").html("<div class='loader'></div>")
+                          $("#img-keeper").val($(this).parent().parent().find(".hero-image").attr("src"))
+                          $("#name-keeper").val($(this).parent().parent().find(".namesa").html())
+                          $("#date-keeper").val($(this).parent().parent().find(".datesa").html())
+                          $("#rare-keeper").val($(this).parent().parent().find(".raresa").html())
+                          step2($(this).parent().parent().attr("id"),$(this).parent().parent().attr("data-id"))
+                      })
+                  })
+              }
+          })
+      })
+  })
+  </script>
+    <script>
+        function moment_search() {
+            var name = $("#bar-seg-1").val()
+            $("#suggestions-box").html("<div class=\"loader\"></div>")
+            if ($("#bar-seg-2").length) {
+            } else {
+                $("<input type='text' id='bar-seg-2' placeholder='Search for Moments'>").appendTo("#search-bar")
+            }
+            name = $("#bar-seg-1").val()
+            $.ajax({
+                url: "/query/",
+                data: {
+                    "request": "nameMoments",
+                    "name": name
+                },
+                success: function (result) {
+                    var i;
+                    var newResults = []
+                    var newResultsIds = []
+                    for (i = 0; i < result.length; i++) {
+                        newResults.push(result[i]['playCategory'] + " | " + result[i]['playTeam'] + " | " + result[i]['playDate'] + " | " + result[i]['playType'] + " | Series " + result[i]['playSeries'])
+                        newResultsIds.push(result[i]['playId'])
+                    }
+                    var htmlSting = ""
+                    for (i = 0; i < newResults.length; i++) {
+                        if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                            htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                        }
+                    }
+                    $("#suggestions-box").html(htmlSting)
+                    $(".suggestion-moment").click(function () {
+                        $("#bar-seg-2").val($(this).find("p").html())
+                        window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                    })
+                    $("div").click(function () {
+                        if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                            $("#suggestions-box").html("")
+                        }
+                    })
+                    $("#bar-seg-2").click(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                    $("#bar-seg-2").keyup(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                }
+            })
+        }
+    </script>
+<script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://127.0.0.1:8000/query/",
+                data: {
+                    "request": "allNames"
+                },
+                success: function (result) {
+                    var nameList = result.split(";");
+                    $("#bar-seg-1").click(function () {
+                        var i;
+                        htmlString = ""
+                        for (i = 0; i < nameList.length; i++) {
+                            htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                        }
+                        if (htmlString == "") {
+                            htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                        }
+                        $("#suggestions-box").html(htmlString)
+
+                        $(".suggestion").click(function () {
+                            $("#bar-seg-1").val($(this).find("p").html())
+                            moment_search()
+                        })
+
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                        $("#bar-seg-1").keyup(function () {
+                            var i;
+                            htmlString = ""
+                            for (i = 0; i < nameList.length; i++) {
+                                if (nameList[i].toLowerCase().includes($("#bar-seg-1").val().toLowerCase()) == true) {
+                                    htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                                }
+                            }
+                            if (htmlString == "") {
+                                htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                            }
+                            $("#suggestions-box").html(htmlString)
+                            $(".suggestion").click(function () {
+                                $("#bar-seg-1").val($(this).find("p").html())
+                                moment_search()
+                            })
+                            $("div").click(function () {
+                                if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                    $("#suggestions-box").html("")
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        })
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#user-account").click(function () {
+                window.location.href = "/account/"
+            })
+            $("#title").click(function () {
+                window.location.href = "/"
+            })
+        })
+
+    </script>
+</head>
+<body>
+<input type="hidden" id="img-keeper">
+<input type="hidden" id="name-keeper">
+<input type="hidden" id="date-keeper">
+<input type="hidden" id="rare-keeper">
+<div class="navbar-container">
+    <div id="title">
+        <p>DigiShop</p>
+    </div>
+    <div id="search-bar">
+        <input id="bar-seg-1" placeholder="Search Players">
+    </div>
+    <div id="user-account">
+        <img src="https://storage.googleapis.com/dapper-profile-icons/avatar-default.png">
+    </div>
+</div>
+<div id="suggestions-box"></div>
+{% csrf_token %}
+<div id="container">
+    <div id="left-side">
+        <div id="section1" class="active awaiting"></div>
+        <div id="section1-2" class="inactive"></div>
+        <div id="section2" class="inactive"></div>
+        <div id="section2-3" class="inactive"></div>
+         <div id="section3" class="inactive"></div>
+  </div>
+  <div id="right-side">
+    <h1>List Your Moments</h1>
+      <div id="step-information">
+          <h2>What is your username?</h2>
+          <input type="text" id="listing-username-input">
+          <button id="listing-username-post">Submit</button>
+          <div id="spare-container"></div>
+          <div id="listing-username-moment-select">
+          </div>
+      </div>
+  </div>
+</div>
+
+</body>
+</html>

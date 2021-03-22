@@ -1,0 +1,475 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moment - DigiShop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+
+        body {
+            font-family: 'Alata', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-box {
+            width: 50%;
+            float: left;
+            border: solid 1px black;
+            padding: 10px 10px 10px 10px;
+        }
+
+        .listings-box {
+            width: 50%;
+            float: right;
+            border: solid 1px black;
+            padding: 10px 10px 10px 10px;
+        }
+
+        #statistic-table-div {
+            width: 100%;
+        }
+
+        .container-images {
+            margin-top: 25px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .video {
+            width: 100%;
+            float: top;
+        }
+
+        .img {
+            width: 100%;
+            float: top;
+            margin-bottom: 40%;
+        }
+
+        #statistics-table {
+            width: 100%;
+        }
+
+        #listings-table {
+            width: 100%;
+            max-height: 1000px;
+            overflow: auto;
+        }
+         #sold-c-listings-table {
+            width: 100%;
+             max-height: 1000px;
+             overflow: auto;
+        }
+
+        .loader {
+            margin-top: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 8px solid white;
+            border-top: 8px solid black;
+            border-bottom: 8px solid black;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,800&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            margin: 0;
+            min-width: 500px;
+        }
+
+        .navbar-container {
+            box-shadow: 0px 10px 10px -10px #000000, 5px 5px 20px 1px rgba(0,0,0,0);
+            width: 100%;
+            height: auto;
+            background-color: white;
+            display: flex;
+        }
+
+        #title {
+            font-weight: 900;
+            font-style: italic;
+            padding-left: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+            height: auto;
+            font-size: 2em;
+        }
+
+        #search-bar {
+            border-radius: 5px;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 15px;
+            margin-right: 15px;
+            height: 2.5em;
+            width: auto;
+            min-width: 125px;
+            flex-grow: 1;
+            border: solid 1px black;
+            background-color: white;
+        }
+
+        #bar-seg-1 {
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #bar-seg-2 {
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #user-account {
+            float: right;
+            height: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        #user-account img {
+            height: 3em;
+        }
+
+        #suggestions-box {
+            text-align: center;
+            width: 80%;
+            margin-left: 10%;
+            height: auto;
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .suggestion {
+        }
+
+        .loader {
+            margin-top: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 8px solid white;
+            border-top: 8px solid black;
+            border-bottom: 8px solid black;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        //Load statistics box
+        $(document).ready(function () {
+            $("#title").click(function () {
+                window.location.href = "/"
+            })
+            $.ajax({
+                url: "/moment/statistics/",
+                data: {
+                    'momentId': $("#moment-id-save").val()
+                },
+                success: function (result) {
+                    $("#statistic-table-div").html(`<table id='statistics-table'>
+         <tr><th>Set Name</th><th>${result['setName']}</th></tr>
+         <tr><th>Series No.</th><th>${result['seriesNo']}</th></tr>
+         <tr><th>Player Team</th><th>${result['playerTeam']}</th></tr>
+         <tr><th>Play Category</th><th>${result['playCategory']}</th></tr>
+         <tr><th>Circulation Count</th><th>${result['circulationCount']}</th></tr>`)
+                    $(`<div class="container-images">
+         <video class="video" autoplay loop>
+         <source src="${result['imagePrefix']}Animated_1080_1920_Black.mp4" type="video/mp4">
+         </video>
+         <img class="img" src="${result['imagePrefix']}Game_2880_2880_Black.jpg">
+         <img class="img" src="${result['imagePrefix']}Category_2880_2880_Black.jpg">
+         <img class="img" src="${result['imagePrefix']}Hero_2880_2880_Black.jpg">
+         <img class="img" src="${result['imagePrefix']}ReverseHero_2880_2880_Black.jpg">
+         <img class="img" src="${result['imagePrefix']}Logos_2880_2880_Black.jpg">
+         </div>`).appendTo(".stats-box")
+                }
+            })
+            $.ajax({
+                url: "/moment/listings/",
+                data: {
+                    "momentId": $("#moment-id-save").val()
+                },
+                success: function (result) {
+                    $(".listing-table-div").html(`<table id="listings-table">
+         <tr><th>Serial</th><th>Withdraw in</th><th>Price</th><th>Select</th></tr>
+         </table>`)
+                    var i;
+                    for (i = 0; i < result.length; i++) {
+                        days = (7 - result[i]["daysListed"]).toString()+" Days"
+                        if (result[i]["daysListed"] > 6){
+                            days = "Available Now"
+                        }
+                        $("<tr><th>" + result[i]["serial"] + "</th><th>"+ days +"</th><th>$" + result[i]["price"] + "</th><th><button class='purchase-button' id='" + result[i]["listing"] + "'>Buy Now</button></th></tr>").appendTo("#listings-table")
+                    }
+                    $(".purchase-button").click(function () {
+                        window.location.href = "/purchase/?listingId=" + $(this).attr("id")
+                    })
+
+                }
+            })
+            $.ajax({
+                url: "/moment/listings/sold",
+                data: {
+                    "momentId": $("#moment-id-save").val()
+                },
+                success: function (result) {
+                    $(".sold-listing-table-div").html(`<table id="sold-c-listings-table">
+         <tr><th>Serial</th><th>Price</th><th>Date Sold</th></tr>
+         </table>`)
+                    var i;
+                    for (i = 0; i < result.length; i++) {
+                        $("<tr><th>" + result[i]["serial"] + "</th><th>$" + result[i]["price"] + "</th><th>" + result[i]["date"] + "</th></tr>").appendTo("#sold-c-listings-table")
+                    }
+
+
+                }
+            })
+        })
+    </script>
+    <script>
+        function moment_search() {
+            var name = $("#bar-seg-1").val()
+            $("#suggestions-box").html("<div class=\"loader\"></div>")
+            if ($("#bar-seg-2").length) {
+            } else {
+                $("<input type='text' id='bar-seg-2' placeholder='Search for Moments'>").appendTo("#search-bar")
+            }
+            name = $("#bar-seg-1").val()
+            $.ajax({
+                url: "/query/",
+                data: {
+                    "request": "nameMoments",
+                    "name": name
+                },
+                success: function (result) {
+                    var i;
+                    var newResults = []
+                    var newResultsIds = []
+                    for (i = 0; i < result.length; i++) {
+                        newResults.push(result[i]['playCategory'] + " | " + result[i]['playTeam'] + " | " + result[i]['playDate'] + " | " + result[i]['playType'] + " | Series " + result[i]['playSeries'])
+                        newResultsIds.push(result[i]['playId'])
+                    }
+                    var htmlSting = ""
+                    for (i = 0; i < newResults.length; i++) {
+                        if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                            htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                        }
+                    }
+                    $("#suggestions-box").html(htmlSting)
+                    $(".suggestion-moment").click(function () {
+                        $("#bar-seg-2").val($(this).find("p").html())
+                        window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                    })
+                    $("div").click(function () {
+                        if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                            $("#suggestions-box").html("")
+                        }
+                    })
+                    $("#bar-seg-2").click(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                    $("#bar-seg-2").keyup(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                }
+            })
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://127.0.0.1:8000/query/",
+                data: {
+                    "request": "allNames"
+                },
+                success: function (result) {
+                    var nameList = result.split(";");
+                    $("#bar-seg-1").click(function () {
+                        var i;
+                        htmlString = ""
+                        for (i = 0; i < nameList.length; i++) {
+                            htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                        }
+                        if (htmlString == "") {
+                            htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                        }
+                        $("#suggestions-box").html(htmlString)
+
+                        $(".suggestion").click(function () {
+                            $("#bar-seg-1").val($(this).find("p").html())
+                            moment_search()
+                        })
+
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                        $("#bar-seg-1").keyup(function () {
+                            var i;
+                            htmlString = ""
+                            for (i = 0; i < nameList.length; i++) {
+                                if (nameList[i].toLowerCase().includes($("#bar-seg-1").val().toLowerCase()) == true) {
+                                    htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                                }
+                            }
+                            if (htmlString == "") {
+                                htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                            }
+                            $("#suggestions-box").html(htmlString)
+                            $(".suggestion").click(function () {
+                                $("#bar-seg-1").val($(this).find("p").html())
+                                moment_search()
+                            })
+                            $("div").click(function () {
+                                if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                    $("#suggestions-box").html("")
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        })
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#user-account").click(function () {
+                window.location.href = "/account/"
+            })
+             var type = "{{userAccountImage}}"
+            if (type == "loggedIn"){
+                $("#user-account").html("<img src=\"https://storage.googleapis.com/dapper-profile-icons/avatar-default.png\">")
+            }
+            if (type == "loggedOut"){
+                $("#user-account").html("<h2>Log In</h2>")
+            }
+        })
+
+    </script>
+</head>
+<body>
+<div class="navbar-container">
+    <div id="title">
+        <p>DigiShop</p>
+    </div>
+    <div id="search-bar">
+        <input id="bar-seg-1" placeholder="Search Players">
+    </div>
+    <div id="user-account">
+    </div>
+</div>
+<div id="suggestions-box"></div>
+<input type="hidden" id="moment-id-save" value="{{momentId}}">
+<h2>{{playerName}} | {{momentCategory}} | {{momentDate}}</h2>
+<div class="container">
+    <div class="stats-box">
+        <h2>Stats</h2>
+        <div id="statistic-table-div">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <div class="listings-box">
+        <h2>Active Listings</h2>
+        <div class="listing-table-div">
+            <div class="loader"></div>
+        </div>
+        <h2>Sold Listings</h2>
+        <div class="sold-listing-table-div">
+            <div class="loader"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

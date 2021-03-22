@@ -1,0 +1,146 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title>Login - DigiShop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+        body{
+            font-family: 'Alata', sans-serif;
+        }
+        h1{
+            text-align:center;
+        }
+        h2{
+            text-align: center;
+        }
+        .login-form-area{
+            width: 25vw;
+            min-width: 300px;
+            margin-left: 25vw;
+        }
+        input{
+            height: 35px;
+            width: 100%;
+            min-width: 200px;
+            margin-top: 25px;
+            min-width: 300px;
+        }
+        #login-submit{
+            width: 50%;
+            min-width: 150px;
+        }
+        .signup{
+            margin-top: 20px;
+            width: 100%;
+        }
+        #username-status-box{
+            min-width: 250px;
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        #password-status-box{
+            min-width: 250px;
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        #login-submit-status-box{
+            min-width: 250px;
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+         .loader {
+            float: left;
+          border: 8px solid white;
+          border-top: 8px solid black;
+            border-bottom: 8px solid black;
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#username").change(function(){
+                $("#username-status-box").html("<div class=\"loader\"></div><h3>Checking Username</h3>")
+                $.ajax({
+                    url:"/check/username/",
+                    data:{
+                        "username": $("#username").val()
+                    },
+                    success: function(result){
+                        $("#username-status-box").html("");
+                        if (result == "valid"){
+                            $('#password').attr("disabled", false);
+                            $('#password').change(function(){
+                                if ($(this).val().length >= 6){
+                                    $('#login-submit').attr("disabled", false);
+                                }
+                            })
+                        }
+                        if (result == "invalid"){
+                            $('#password').attr("disabled", true);
+                            $('#login-submit').attr("disabled", true);
+                        }
+                    }
+                })
+            })
+            $("#login-submit").click(function(){
+                $("#login-submit-status-box").html("<div class=\"loader\"></div><h3>Checking Login</h3>")
+                $.ajax({
+                    url: "/check/login/",
+                    data: {
+                        "username": $("#username").val(),
+                        "password": $("#password").val()
+                    },
+                    success: function(result){
+                        if (result == "valid"){
+                            $("#login-submit-status-box").html("<h3>Login Valid. Welcome.</h3>")
+                            window.location.href = "/";
+                        }
+                        if (result == "invalid"){
+                            $("#login-submit-status-box").html("<h3>Username or Password incorrect. Try again.")
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<h1>
+    Welcome to DigiShop
+</h1>
+<h2>Login</h2>
+<div class="login-form-area">
+    <input type="text" id="username" placeholder="Username">
+     <div id="username-status-box">
+
+    </div>
+    <br>
+    <input type="password" id="password" placeholder="Password" disabled="true">
+    <div id="password-status-box">
+    </div>
+    <br>
+    <input type="submit" id="login-submit"  disabled="true">
+    <div id="login-submit-status-box">
+    </div>
+    <br>
+    <a href="/signup/" class="signup">Don't have an account? Create one.</a>
+</div>
+
+
+</body>
+</html>
