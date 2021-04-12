@@ -1,0 +1,102 @@
+<html>
+<head>
+<style>
+         @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+        body{
+            font-family: 'Alata', sans-serif;
+            background-color: #e3e3e3;
+        }
+        h1{
+            text-align:center;
+            font-size: 1.5em;
+        }
+        h2{
+          margin-top: 30px;
+            text-align: center;
+            font-size: 1em;
+        }
+        h3{
+          font-size: 0.85em;
+        }
+        .form-area{
+            margin-top: 100px;
+            width: 25vw;
+            min-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 25px 25px 25px 25px;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .main-logo{
+            margin-left: 50%;
+            transform: translatex(-50%);
+            height: 175px;
+        }
+        .passsword-input{
+          border: 0;
+    border-radius: 5px;
+    background-color: #E9E9E9;
+    font-family: 'Alata', sans-serif;
+    height: 35px;
+    width: 100%;
+    min-width: 200px;
+    margin-top: 25px;
+    min-width: 300px;
+        }
+        #update-password{
+          margin-top: 15px;
+          font-family: 'Alata', sans-serif;
+    box-shadow: 2px 4px 18px -1px rgb(0 0 0 / 85%);
+    background-color: #47B0DE;
+    border-radius: 5px;
+    border: 0;
+    width: 50%;
+    color: white;
+    min-width: 150px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px 5px 10px;
+        }
+
+        .ignored{
+          opacity: 0.5;
+        }
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#update-password").click(function(){
+  $("#sent-update-div").html("<h3>Check your inbox for the reset email. Check your spam folder too.</h3>")
+  	$.ajax({
+    url: "/password/reset/request/",
+    data: {'email': $("#email-input").val()}
+    })
+  })
+    })
+
+</script>
+</head>
+<body>
+  <div class="form-area">
+  <a href="/"><img class="main-logo" src="http://127.0.0.1:8000/static/logo.png" ></a>
+  <h1>
+  Get your username or reset your password
+  </h1>
+  <h2>
+  Enter your email below
+  </h2>
+  <input type="text" class="passsword-input" id="email-input" placeholder="Email">
+
+
+
+  <button id="update-password" >
+  Send Link
+  </button>
+  <div id="sent-update-div">
+
+  </div>
+  </div>
+</body>
+</html>

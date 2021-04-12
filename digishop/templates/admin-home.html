@@ -268,6 +268,23 @@
         h1{
              text-align:center;
          }
+        #withdraws-pending{
+             padding: 15px 15px 15px 15px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 25px;
+            border: solid 2px black;
+            border-radius: 10px;
+            width: fit-content;
+            max-height: 500px;
+            overflow: auto;
+        }
+        #withdraws-pending-p{
+             font-size: 1.5em;
+             margin:0;
+             padding:0;
+             width: fit-content;
+        }
         #todo-box{
             max-height: 500px;
             overflow: auto;
@@ -348,6 +365,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            $("#withdraws-pending").click(function(){
+                window.location.href = "withdraws/"
+            })
             $.ajax({
                 url: '/admin/todolist/',
                 dataType: "json",
@@ -400,6 +420,9 @@
 </div>
 <div id="suggestions-box"></div>
 <h1>Admin Homepage</h1>
+<div id="withdraws-pending">
+    <p id="withdraws-pending-p">Pending Withdraws</p>
+</div>
 <div id="todo-box">
     <p id="todo-box-p">To Do Discussions</p>
 </div>

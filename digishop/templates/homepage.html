@@ -5,6 +5,7 @@
          @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
          body{
          font-family: 'Alata', sans-serif;
+             background-color: #f0f0f0;
          }
          h1{
          text-align:center;
@@ -12,16 +13,7 @@
          h2{
          text-align:center;
          }
-         #search-bar{
-         background-color: white;
-         width: 40%;
-         min-width: 500px;
-         height: 35px;
-         border: solid 1px black;
-         margin-left: auto;
-         margin-right: auto;
-         border-radius: 5px;
-         }
+
          #bar-seg-1{
          width:50%;
          height: 100%;
@@ -48,6 +40,7 @@
          background-color: transparent;
          }
          .home-body{
+
          }
          #suggestions-box{
          background-color: white;
@@ -60,9 +53,11 @@
          max-height: 500px;
          overflow: auto;
          }
-         .suggestion{
+         .suggestion:hover{
+             background-color: #919191;
          }
-         .suggestion-moment{
+         .suggestion-moment:hover{
+             background-color: #919191;
          }
          .suggestion-moment-copy{
          }
@@ -91,12 +86,17 @@
             padding: 0;
             margin: 0;
             min-width: 500px;
+        /*
+            {% load static %}
+            background-image: url("{% static "v05-cube-19.jpg" %}");
+            background-size: 350px 256px;
+
+         */
         }
 
         .navbar-container {
             width: 100%;
             height: auto;
-            background-color: white;
             display: flex;
         }
 
@@ -111,20 +111,24 @@
         }
 
         #search-bar {
+            font-family: 'Alata', sans-serif;
             border-radius: 5px;
             margin-top: auto;
             margin-bottom: auto;
             margin-left: auto;
             margin-right: auto;
-            height: 2.5em;
+            height: 4em;
             width: 50%;
             min-width: 125px;
             flex-grow: 1;
             border: solid 1px black;
             background-color: white;
+            transform: translateY(-50%);
         }
 
         #bar-seg-1 {
+            font-family: 'Alata', sans-serif;
+            font-size: 1em;
             border-radius: 5px;
             outline: none;
             width: 49%;
@@ -135,6 +139,8 @@
         }
 
         #bar-seg-2 {
+            font-family: 'Alata', sans-serif;
+            font-size: 1em;
             border-radius: 5px;
             outline: none;
             width: 49%;
@@ -157,6 +163,14 @@
         #user-account img {
             height: 3em;
         }
+        #banner{
+            width: 70%;
+font-family: 'Alata', sans-serif;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            border-radius: 20px;
+
+        }
 
         #suggestions-box {
             text-align: center;
@@ -169,7 +183,85 @@
 
         .suggestion {
         }
+ .moment{
+      border: solid 6px #D4AF37;
+      border-radius: 10px;
+      width: 200px;
+      font-family: 'Alata', sans-serif;
+      background-color: #060030;
+      color: white;
+      padding-bottom: 5px;
+      transition: 0.3s;
+     margin-bottom: 15px;
+  }
+  .moment:hover{
+      transform: scale(1.05);
+  }
 
+.moment-player-name{
+  padding: 10px 0px 5px 10px;
+  text-align: left;
+  font-size: 1em;
+}
+.moment-image-row{
+  background-color: black;
+  width:90%;
+  margin-left: 5%;
+  border-radius: 5px;
+  border: solid 2px white;
+
+}
+.moment-image{
+  height: 125px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+}
+.row{
+  width: 100%;
+  display: flex;
+  font-size: 0.85em;
+}
+.row-t-1{
+  width: 40%;
+  padding-left: 20px;
+  margin-top: 1px;
+}
+.row-t-2{
+   width: 40%;
+  text-align:right;
+  margin-top: 1px;
+}
+.series-container{
+
+  color: black;
+  width: fit-content;
+  border-radius: 2px;
+  height: 1.5em;
+  font-size: 0.85em;
+  background: #D4AF37;
+background: linear-gradient(to bottom, #D4AF37 0%, #C5A028 100%);
+
+  padding: 3px 3px 3px 3px;
+  text-align:center;
+  float: right;
+  margin-right: 15px;
+  transform: skewX(-15deg) translateY(-50%);
+
+
+}
+  #listing-section{
+      display: flex;
+
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+  }
+#promoted-listings{
+    margin-top: 50px;
+}
         .loader {
             margin-top: 15px;
             margin-left: auto;
@@ -350,25 +442,122 @@
         })
 
     </script>
+       <script>
+           $(document).ready(function(){
+               $("#live-market").click(function(){
+                   window.location.href = "/live/"
+               })
+               $.ajax({
+                   url: '/query/listings/',
+                   success: function(result){
+                       var i;
+                       for (i=0;i<result.length;i++){
+                           $(`<div id="${result[i]['id']}" class="moment"> <div class="moment-player-name">
+  ${result[i]['name']}
+  </div>
+  <div class="moment-image-row">
+  <img class="moment-image" src="${result[i]['image']}">
+  </div>
+  <div class="series-container ">
+    ${result[i]['serial']}
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result[i]['type']}
+    </p>
+    <p class="row-t-2">
+    ${result[i]['date']}
+    </p>
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result[i]['set']}
+    </p>
+    <p class="row-t-2">
+    ${result[i]['series']}
+    </p>
+  </div>
+</div>`).appendTo("#listing-section")
+                       }
+                       $(".moment").click(function(){
+                           window.location.href = '/moment/?momentId='+$(this).attr("id")
+                       })
+                   }
+               })
+           })
+       </script>
+       <style>
+           .title-logo{
+               margin-top: 20px;
+               height: 100px;
+               margin-left: 30px;
+               margin-bottom: 30px;
+           }
+           #live-market{
+               margin-left: 50%;
+               transform: translateX(-125%);
+           }
+
+           #live-market p{
+               text-align:center;
+               font-size: 1.75em;
+               padding: 10px 10px 10px 10px;
+               transition: 0.3s;
+               border-radius: 5px;
+               background-color: #e6e6e6;
+           }
+           #live-market p:hover{
+               background-color: #d1d1d1;
+           }
+       </style>
    </head>
    <body>
-   <div class="navbar-container">
-    <div id="title">
-        <p>DigiShop</p>
-    </div>
 
+      <div class="home-body">
+             <div class="navbar-container">
+    <div id="title">
+        {% load static %}
+        <img class="title-logo" src="{% static "logo.png" %}">
+    </div>
+    <div id="live-market">
+        <p>Live Market</p>
+    </div>
     <div id="user-account">
 
     </div>
 </div>
-      <h1>Welcome to DigiShop</h1>
-      <div class="home-body">
+          <h1>Buy and Sell your TopShot Moments at DigiShop!</h1>
+          <img id="banner" src="{% static "banner.png" %}">
          <div class="search-area">
             <div id="search-bar">
                <input type="text" id="bar-seg-1" placeholder="Search Players">
             </div>
             <div id="suggestions-box"></div>
          </div>
+
+
+
+            <div id="promoted-listings">
+                <h2>Recent Listings</h2>
+                <div id="listing-section">
+
+                </div>
+
+            </div>
+
+
+
+
       </div>
+      <style>
+         #bottom-text{
+            font-size: 0.75em;
+            text-align:center;
+            margin-bottom: 0px;
+        }
+      </style>
+   <p id="bottom-text">
+2021&#169; Digishop LLC - <a href="/aboutus/">About Us</a> - <a href="/terms/">Terms</a> - <a href="/privacy/">Privacy Policy</a>
+</p>
    </body>
 </html>

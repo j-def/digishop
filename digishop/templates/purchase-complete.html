@@ -5,18 +5,35 @@
          @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
      body{
         font-family: 'Alata', sans-serif;
+         background-color: #e3e3e3;
      }
+         button{
+            border: 0;
+            padding: 5px 10px 5px 10px;
+            border-radius:5px;
+            background-color: #0d0069;
+            color: white;
+            transition: 0.3s;
+        }
+        button:hover{
+            background-color: #D4AF37;
+            color: black;
+        }
      h1{
         text-align:center;
      }
      h2{
         text-align:center;
      }
-     #purchase-box{
-         border: solid 1px black;
+       #purchase-box{
+         min-width: 300px;
+         margin-top: 100px;
+         border-radius: 5px;
          width: 50%;
          margin-left: auto;
          margin-right: auto;
+         padding: 15px 15px 15px 15px;
+         background-color: white;
      }
      .title{
          text-align: center;
@@ -38,6 +55,11 @@
      .withdraw-acc-box p{
          text-align:center;
      }
+        .main-logo{
+            margin-left: 50%;
+            transform: translatex(-50%);
+            height: 175px;
+        }
      #withdraw-acc{
          width: 250px;
          margin-left: 50%;
@@ -118,9 +140,11 @@
 <input type="hidden" id="paypal-payment-id" value="{{paypalPaymentId}}">
 <input type="hidden" id="paypal-token" value="{{paypalToken}}">
 <input type="hidden" id="paypal-payer-id" value="{{paypalPayerId}}">
-<h1>DigiShop</h1>
-<h2>Confirm Purchase</h2>
+
 <div id="purchase-box">
+         {% load static %}
+    <a href="/"><img class="main-logo" src="{% static "logo.png" %}" ></a>
+    <h2>Confirm Purchase</h2>
     <p class="title">{{momentTitle}}</p>
     <p class="text">${{momentPrice}}</p>
     <p class="text">Serial: {{serialNumber}}</p>
@@ -133,6 +157,16 @@
     <div class="moment-stats">
 
     </div>
+         <style>
+         #bottom-text{
+            font-size: 0.75em;
+            text-align:center;
+            margin-bottom: 0px;
+        }
+      </style>
+   <p id="bottom-text">
+2021&#169; Digishop LLC - <a href="/aboutus/">About Us</a> - <a href="/terms/">Terms</a> - <a href="/privacy/">Privacy Policy</a>
+</p>
 </div>
 </body>
 </html>

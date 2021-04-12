@@ -2,9 +2,15 @@ from django.shortcuts import render, HttpResponse
 import json
 from datetime import timezone, datetime
 import random
+import pyodbc
 import string
+from digishop_emailer import emailer
 
 ADMIN_LIST = ["jdefesche"]
+dbserver = 'REGCONSERVER1'
+dbdatabase = 'digishop'
+dbusername = 'belotecainventory'
+dbpassword = 'belotecainventory'
 
 
 def home(request):
@@ -85,3 +91,33 @@ def create_discussion(request):
             json.dump(todoJson, open("todo.json", "w"))
 
             return HttpResponse("Success")
+
+def withdraw_table(request):
+    if request.session["username"] in ADMIN_LIST:
+        return render(request, "withdraw-table.html")
+
+def grab_withdraw_requests(request):
+    if request.method == "GET":
+        if request.session["username"] in ADMIN_LIST:
+            cnxn = pyodbc.connect(
+                'DRIVER={SQL Server};SERVER=' + dbserver + ';DATABASE=' + dbdatabase + ';UID=' + dbusername + ';PWD=' + dbpassword)
+            cursor = cnxn.cursor()
+            cursor.execute("SELECT owner_account, withdraw_amount, withdraw_email, withdraw_timestamp, id FROM withdraw_requests WHERE status='awaiting_withdraw'", )
+            respJson = [{"username": item[0], "amount": float(item[1]), "email": item[2], "id": item[4]} for item in cursor.fetchall()]
+            return HttpResponse(json.dumps(respJson), content_type="application/json")
+
+def mark_withdraw_as_sent(request):
+    if request.method == "GET":
+        if request.session["username"] in ADMIN_LIST:
+            markid = request.GET["markId"]
+            cnxn = pyodbc.connect(
+                'DRIVER={SQL Server};SERVER=' + dbserver + ';DATABASE=' + dbdatabase + ';UID=' + dbusername + ';PWD=' + dbpassword)
+            cursor = cnxn.cursor()
+            cursor.execute("UPDATE withdraw_requests SET status='sent', completed_timestamp=?  WHERE id=?", (str(int(datetime.now().timestamp())),markid))
+            cursor.execute("SELECT owner_account FROM withdraw_requests WHERE id=?", (markid))
+            owner = cursor.fetchone()[0]
+            cnxn.commit()
+            cnxn.close()
+            e = emailer()
+            e.payout_completed(owner, markid)
+            return HttpResponse(json.dumps({'status': 'success'}), content_type="application/json")

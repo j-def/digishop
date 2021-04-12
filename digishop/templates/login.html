@@ -6,6 +6,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
         body{
             font-family: 'Alata', sans-serif;
+            background-color: #e3e3e3;
         }
         h1{
             text-align:center;
@@ -14,11 +15,17 @@
             text-align: center;
         }
         .login-form-area{
+            margin-top: 100px;
             width: 25vw;
             min-width: 300px;
-            margin-left: 25vw;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 25px 25px 25px 25px;
+            border-radius: 5px;
+            background-color: white;
         }
         input{
+            font-family: 'Alata', sans-serif;
             height: 35px;
             width: 100%;
             min-width: 200px;
@@ -26,20 +33,39 @@
             min-width: 300px;
         }
         #login-submit{
+            font-family: 'Alata', sans-serif;
+            box-shadow: 2px 4px 18px -1px rgba(0,0,0,0.85);
+            background-color: #47B0DE;
+            border-radius: 5px;
+            border: 0;
             width: 50%;
+            color: white;
             min-width: 150px;
+            margin-left: 50%;
+            transform: translateX(-50%);
         }
         .signup{
             margin-top: 20px;
             width: 100%;
         }
-        #username-status-box{
+        #username-status-box {
             min-width: 250px;
             display: inline-block;
             padding-top: 15px;
             padding-bottom: 15px;
             width: 100%;
         }
+        #username{
+            border: 0;
+            border-radius: 5px;
+            background-color:#E9E9E9;
+        }
+         #password{
+            border: 0;
+            border-radius: 5px;
+            background-color:#E9E9E9;
+        }
+
         #password-status-box{
             min-width: 250px;
             display: inline-block;
@@ -53,6 +79,11 @@
             padding-top: 15px;
             padding-bottom: 15px;
             width: 100%;
+        }
+        .main-logo{
+            margin-left: 50%;
+            transform: translatex(-50%);
+            height: 175px;
         }
          .loader {
             float: left;
@@ -83,16 +114,9 @@
                     success: function(result){
                         $("#username-status-box").html("");
                         if (result == "valid"){
-                            $('#password').attr("disabled", false);
-                            $('#password').change(function(){
-                                if ($(this).val().length >= 6){
-                                    $('#login-submit').attr("disabled", false);
-                                }
-                            })
+
                         }
                         if (result == "invalid"){
-                            $('#password').attr("disabled", true);
-                            $('#login-submit').attr("disabled", true);
                         }
                     }
                 })
@@ -120,27 +144,37 @@
     </script>
 </head>
 <body>
-<h1>
-    Welcome to DigiShop
-</h1>
-<h2>Login</h2>
 <div class="login-form-area">
+    {% load static %}
+    <a href="/"><img class="main-logo" src="{% static "logo.png" %}" ></a>
+<h2>Login</h2>
+
     <input type="text" id="username" placeholder="Username">
      <div id="username-status-box">
 
     </div>
     <br>
-    <input type="password" id="password" placeholder="Password" disabled="true">
+    <input type="password" id="password" placeholder="Password" >
     <div id="password-status-box">
     </div>
     <br>
-    <input type="submit" id="login-submit"  disabled="true">
+    <input type="submit" id="login-submit"  value="Log In">
     <div id="login-submit-status-box">
     </div>
     <br>
-    <a href="/signup/" class="signup">Don't have an account? Create one.</a>
-</div>
+    <a href="/signup/" class="signup">Don't have an account? Create one.</a><br><br>
+    <a href="/password/reset/submit/" class="signup">Forgot your username or password? Find it here.</a>
 
-
+ <style>
+         #bottom-text{
+            font-size: 0.75em;
+            text-align:center;
+            margin-bottom: 0px;
+        }
+      </style>
+   <p id="bottom-text">
+2021&#169; Digishop LLC - <a href="/aboutus/">About Us</a> - <a href="/terms/">Terms</a> - <a href="/privacy/">Privacy Policy</a>
+</p>
+    </div>
 </body>
 </html>

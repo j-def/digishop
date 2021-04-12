@@ -1,0 +1,130 @@
+<html>
+    <head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,800&display=swap');
+body{
+  font-family: 'Poppins', sans-serif;
+}
+     .navbar-container {
+            width: 100%;
+            height: auto;
+            background-color: white;
+            display: flex;
+        }
+
+        #title {
+
+            font-weight: 900;
+            font-style: italic;
+            padding-left: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+            height: auto;
+            font-size: 2em;
+        }
+ #user-account {
+            float: right;
+           margin-left: auto;
+            height: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+ #bottom-text{
+            font-size: 0.75em;
+            text-align:center;
+            margin-bottom: 0px;
+        }
+        #user-account img {
+            border-radius: 5px;
+            height: 3em;
+        }
+        h1{
+          text-align: center;
+        }
+
+</style>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+        $(document).ready(function () {
+            $("#title").click(function(){
+                window.location.href = "/"
+            })
+            $("#user-account").click(function () {
+                window.location.href = "/account/"
+            })
+            var type = "{{userAccountImage}}"
+            if (type == "loggedIn"){
+                {% load static %}
+                $("#user-account").html("<img src=\"{% static 'avatarimng.jpeg' %}\">")
+            }
+            if (type == "loggedOut"){
+                $("#user-account").html("<h2>Log In</h2>")
+            }
+        })
+
+    </script>
+</head>
+<body>
+<div class="navbar-container">
+    <div id="title">
+        <p>DigiShop</p>
+    </div>
+
+    <div id="user-account"></div>
+</div>
+<h1>
+About Us
+</h1>
+<div style="width:80%;margin-left:10%;margin-right:10%;">
+
+<p>
+Founded in 2021 by Anthony & TheFreeThinker. We are a digital marketplace for NFT's (Non-fungible token). Our major focus is to provide users with a 3rd-party marketplace catered to the community in efforts of making transactions secured and effortless.<br>
+<br>
+<span style="font-weight:bold;">We are not affiliated with NBATopShot</span>
+</p>
+</div>
+<h1>
+How It Works
+</h1>
+<div style="width:80%;margin-left:10%;margin-right:10%;">
+<p>
+This is a marketplace similar to many others. How it works is simple.<br><br><br>
+For Sellers:<br><br>
+&emsp;&emsp;1. You send your moments to our accounts and set the price you want.<br>
+&emsp;&emsp;2. Wait until your moment sells on our marketplace. Once it sells, the funds will be available in your account wallet.<br>
+&emsp;&emsp;3. Withdraw your funds to your PayPal account. All withdraw requests are manually reviewed to ensure the safety of the marketplace. Any withdraws are subject to up to 7-10 days in process.
+<br><br>
+For Buyers:<br><br>
+&emsp;&emsp;1. Find the moment you want and the select any listing available.<br>
+&emsp;&emsp;2. Go through the PayPal purchase procedure. After submitting your purchase, your moment will be queued for withdraw. Due to the nature of these moments all sales are final, except in rare cases.<br>
+&emsp;&emsp;3. All withdraw requests are manually reviewed to ensure the safety of the marketplace. Any withdraws are subject to up to 7-10 days in process.
+</p>
+</div>
+<h1>
+FAQ
+</h1>
+<div style="width:80%;margin-left:10%;margin-right:10%;">
+<p>
+Is this against NBA TopShot TOS?<br>
+&emsp;&emsp;No, we do not violate their terms of service. Our API usage is in line with their TOS and we do not employ the use of bots. <br><br>
+Can I change my mind after listing?<br>
+&emsp;&emsp;Yes! All listings can be put on hold for withdraw and made unavailable for purchase.<br><br>
+What is the fee?<br>
+&emsp;&emsp;Currently, the fee is 8% + $0.30<br><br>
+</p>
+</div>
+<h1>
+Contact Us
+</h1>
+<div style="width:80%;margin-left:10%;margin-right:10%;">
+<p>
+Email Us at contactus@digishop.gg
+</p>
+</div>
+<p id="bottom-text">
+2021&#169; Digishop LLC - <a href="/aboutus/">About Us</a> - <a href="/terms/">Terms</a> - <a href="/privacy/">Privacy Policy</a>
+</p>
+</body>
+</html>

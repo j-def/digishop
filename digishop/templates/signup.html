@@ -5,6 +5,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
         body{
             font-family: 'Alata', sans-serif;
+            background-color: #e3e3e3;
         }
         h1{
             text-align:center;
@@ -18,20 +19,61 @@
             padding-left: 10px;
         }
         .login-form-area{
+
+            margin-top: 100px;
             width: 25vw;
-            margin-left: 25vw;
+            min-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 25px 25px 25px 25px;
+            border-radius: 5px;
+            background-color: white;
+
         }
         input{
+            font-family: 'Alata', sans-serif;
             height: 35px;
             width: 100%;
             min-width: 200px;
             margin-top: 25px;
+            border: 0;
+            border-radius: 5px;
+            background-color:#E9E9E9;
         }
+        input:disabled{
+            font-family: 'Alata', sans-serif;
+            height: 35px;
+            width: 100%;
+            min-width: 200px;
+            margin-top: 25px;
+            border: 0;
+            border-radius: 5px;
+            background-color:#bfbfbf;
+        }
+
         #login-submit{
+            font-family: 'Alata', sans-serif;
+            box-shadow: 2px 4px 18px -1px rgba(0,0,0,0.85);
+            background-color: #47B0DE;
+            border-radius: 5px;
+            border: 0;
             width: 50%;
+            color: white;
             min-width: 150px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+        #login-submit:disabled{
+            background-color: #8c8c8c;
         }
         #username-status-box{
+            min-width: 250px;
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        #email-status-box{
             min-width: 250px;
             display: inline-block;
             padding-top: 15px;
@@ -44,6 +86,11 @@
             padding-top: 15px;
             padding-bottom: 15px;
             width: 100%;
+        }
+        .main-logo{
+            margin-left: 50%;
+            transform: translatex(-50%);
+            height: 175px;
         }
         .loader {
             float: left;
@@ -82,7 +129,8 @@
                     data:{
                         "csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val(),
                         "username": $("#username").val(),
-                        "password": $("#password").val()
+                        "password": $("#password").val(),
+                        "email": $("#email").val()
                     },
                     success: function(result){
                         if (result == "success"){
@@ -92,6 +140,39 @@
                             alert(result)
                         }
                     }
+                })
+            })
+            $("#email").change(function(){
+                $("#email-status-box").html("<div class=\"loader\"></div><h3>Checking Email</h3>")
+                $.ajax({
+                    url: "/check/email/",
+                        data: {
+                            "email": $("#email").val()
+                        },
+                        success: function(result){
+                            if (result == "valid"){
+                                $("#email-status-box").html("<h3>Email Taken</h3>")
+                                 $('#password').attr("disabled", true);
+                                $('#login-submit').attr("disabled", true);
+                                $("#password-text").css("opacity", ".5");
+                            }
+                            if (result == "invalid"){
+                                $("#email-status-box").html("<h3>Email Available</h3>")
+                                $('#password').attr("disabled", false);
+                                $("#password-text").css("opacity", "1");
+                                $("#password").keydown(function(){
+                                    if ($("#password").val().length >= 6){
+                                        $("#password-text").css("opacity", ".5");
+                                        $('#login-submit').attr("disabled", false);
+                                    }
+                                    if ($("#password").val().length < 6){
+                                        $("#password-text").css("opacity", "1");
+                                        $('#login-submit').attr("disabled", true);
+                                    }
+                                })
+
+                            }
+                        }
                 })
             })
             $("#username").change(function(){
@@ -139,16 +220,20 @@
     </script>
 </head>
 <body>
-<h1>
-    Welcome to DigiShop
-</h1>
+<div class="login-form-area">
+ {% load static %}
+    <a href="/"><img class="main-logo" src="{% static "logo.png" %}" ></a>
 <h2>
     Sign Up
 </h2>
-<div class="login-form-area">
+
     {% csrf_token %}
     <input type="text" id="username" placeholder="Username">
     <div id="username-status-box">
+
+    </div>
+    <input type="text" id="email" placeholder="Email">
+    <div id="email-status-box">
 
     </div>
     <br>
@@ -161,7 +246,17 @@
     <div id="login-submit-status-box">
     <br>
     <a href="/login/">Already have an account? Log in here.</a>
-</div>
 
+ <style>
+         #bottom-text{
+            font-size: 0.75em;
+            text-align:center;
+            margin-bottom: 0px;
+        }
+      </style>
+   <p id="bottom-text">
+2021&#169; Digishop LLC - <a href="/aboutus/">About Us</a> - <a href="/terms/">Terms</a> - <a href="/privacy/">Privacy Policy</a>
+</p>
+        </div>
 </body>
 </html>

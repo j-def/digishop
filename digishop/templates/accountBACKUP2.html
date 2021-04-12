@@ -1,0 +1,1130 @@
+<html>
+<head>
+    <title>Account - DigiShop</title>
+    <style>
+           @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+     body{
+        font-family: 'Alata', sans-serif;
+     }
+     h1{
+        text-align:center;
+     }
+     h2{
+        text-align:center;
+     }
+     .method-box{
+         text-align: center;
+         width: fit-content;
+         margin-left: auto;
+         margin-right: auto;
+         margin-bottom: 25px;
+         border: solid 1px black;
+         border-radius: 10px;
+         padding: 15px 15px 15px 15px;
+         box-shadow: 0px 0px 20px -4px rgba(0,0,0,0.55);
+
+     }
+     .method-box p{
+         text-align:center;
+         padding: 0;
+     }
+     .listing-image{
+         width: 128px;
+     }
+
+     .withdraw-input{
+         width: 50%;
+         margin-left: 25%;
+         margin-right: 25%;
+         margin-bottom: 25px;
+     }
+     #create-wallet-withdraw{
+         width: auto;
+         position: fixed;
+         min-width: 300px;
+         z-index: 999;
+         left: 50%;
+         top: 50%;
+         transform: translate(-50%, -50%);
+         background-color: white;
+        border: solid 2px black;
+        border-radius: 10px;
+     }
+     </style>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,800&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            margin: 0;
+            min-width: 500px;
+        }
+
+        .navbar-container {
+            box-shadow: 0px 10px 10px -10px #000000, 5px 5px 20px 1px rgba(0,0,0,0);
+            width: 100%;
+            height: auto;
+            background-color: white;
+            display: flex;
+        }
+
+        #title {
+            font-weight: 900;
+            font-style: italic;
+            padding-left: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+            height: auto;
+            font-size: 2em;
+        }
+
+        #search-bar {
+            border-radius: 5px;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 15px;
+            margin-right: 15px;
+            height: 2.5em;
+            width: auto;
+            min-width: 125px;
+            flex-grow: 1;
+            border: solid 1px black;
+            background-color: white;
+        }
+
+        #bar-seg-1 {
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #bar-seg-2 {
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #user-account {
+            float: right;
+            height: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        #user-account img {
+            height: 3em;
+        }
+
+        #suggestions-box {
+            text-align: center;
+            width: 80%;
+            margin-left: 10%;
+            height: auto;
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .suggestion {
+        }
+        .fullscreen-opac{
+            z-index:99;
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            opacity: 0.5;
+            top:0;
+            left:0;
+        }
+        #edit-listing-window{
+            padding: 15px 15px 15px 15px;
+            z-index:999;
+            position: fixed;
+            width: 50%;
+            min-width: 400px;
+            min-height: 300px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            top: calc(50% - 150px);
+            background-color: white;
+            border: solid 2px black;
+            border-radius: 10px;
+        }
+        #edit-window-title{
+            font-size: 1.5em;
+            text-align:center;
+        }
+         #edit-window-text{
+            font-size: 1.25em;
+            text-align:center;
+        }
+        #edit-listing-window-nest{
+            width: 100%;
+        }
+
+        .loader {
+            margin-top: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 8px solid white;
+            border-top: 8px solid black;
+            border-bottom: 8px solid black;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+        }
+        #submit-account-withdraw{
+            width: 50%;
+            margin-left: 25%;
+            margin-right: 25%;
+            margin-bottom: 25px;
+        }
+        #submit-account-withdraw-2{
+            width: 50%;
+            margin-left: 25%;
+            margin-right: 25%;
+            margin-bottom: 25px;
+        }
+ .info-circle{
+      width: fit-content;
+      padding: 5px 5px 5px 5px;
+      border-radius: 50%;
+      font-size: 1em;
+  }
+ .info-circle-content{
+     width: 220px;
+     height: 25px;
+     border: solid 1px black;
+     border-radius: 5px;
+     padding: 0px 5px 0px 5px;
+     margin-left: 5px;
+ }
+
+  #edit-listing-table{
+      width: 90%;
+      margin-left: 5%;
+      margin-right: 5%;
+  }
+  .main-container-tabs{
+    width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+  }
+  .tab-box{
+      height: 2em;
+      padding: 10px 10px 10px 10px;
+      width: fit-content;
+      border: solid 1px black;
+      border-bottom: 0;
+      font-size: 1.25em;
+      border-radius: 5px 5px 0px 0px;
+      margin-right: 5px;
+      background-color: #cdcdcd;
+  }
+  .unselected:hover{
+      background-color: #e6e6e6;
+  }
+  .selected{
+      background-color: white;
+  }
+    .main-container{
+        padding-top: 25px;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        border: solid 1px black;
+        border-radius: 0px 10px 10px 10px;
+    }
+  #pricing-table{
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .edit-listing-method-button{
+      margin-left: 20%;
+      margin-right: 20%;
+      margin-top: 25px;
+      width: 60%;
+      height: 25px;
+  }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        function moment_search() {
+            var name = $("#bar-seg-1").val()
+            $("#suggestions-box").html("<div class=\"loader\"></div>")
+            if ($("#bar-seg-2").length) {
+            } else {
+                $("<input type='text' id='bar-seg-2' placeholder='Search for Moments'>").appendTo("#search-bar")
+            }
+            name = $("#bar-seg-1").val()
+            $.ajax({
+                url: "/query/",
+                data: {
+                    "request": "nameMoments",
+                    "name": name
+                },
+                success: function (result) {
+                    var i;
+                    var newResults = []
+                    var newResultsIds = []
+                    for (i = 0; i < result.length; i++) {
+                        newResults.push(result[i]['playCategory'] + " | " + result[i]['playTeam'] + " | " + result[i]['playDate'] + " | " + result[i]['playType'] + " | Series " + result[i]['playSeries'])
+                        newResultsIds.push(result[i]['playId'])
+                    }
+                    var htmlSting = ""
+                    for (i = 0; i < newResults.length; i++) {
+                        if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                            htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                        }
+                    }
+                    $("#suggestions-box").html(htmlSting)
+                    $(".suggestion-moment").click(function () {
+                        $("#bar-seg-2").val($(this).find("p").html())
+                        window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                    })
+                    $("div").click(function () {
+                        if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                            $("#suggestions-box").html("")
+                        }
+                    })
+                    $("#bar-seg-2").click(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                    $("#bar-seg-2").keyup(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                }
+            })
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://127.0.0.1:8000/query/",
+                data: {
+                    "request": "allNames"
+                },
+                success: function (result) {
+                    var nameList = result.split(";");
+                    $("#bar-seg-1").click(function () {
+                        var i;
+                        htmlString = ""
+                        for (i = 0; i < nameList.length; i++) {
+                            htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                        }
+                        if (htmlString == "") {
+                            htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                        }
+                        $("#suggestions-box").html(htmlString)
+
+                        $(".suggestion").click(function () {
+                            $("#bar-seg-1").val($(this).find("p").html())
+                            moment_search()
+                        })
+
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                        $("#bar-seg-1").keyup(function () {
+                            var i;
+                            htmlString = ""
+                            for (i = 0; i < nameList.length; i++) {
+                                if (nameList[i].toLowerCase().includes($("#bar-seg-1").val().toLowerCase()) == true) {
+                                    htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                                }
+                            }
+                            if (htmlString == "") {
+                                htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                            }
+                            $("#suggestions-box").html(htmlString)
+                            $(".suggestion").click(function () {
+                                $("#bar-seg-1").val($(this).find("p").html())
+                                moment_search()
+                            })
+                            $("div").click(function () {
+                                if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                    $("#suggestions-box").html("")
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        })
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#user-account").click(function () {
+                window.location.href = "/account/"
+            })
+            $("#list-moment-button").click(function(){
+                window.location.href = "/listing/"
+            })
+        })
+
+    </script>
+    <script>
+        $(document).ready(function (){
+            $("#title").click(function () {
+                window.location.href = "/"
+            })
+            $.ajax({
+                url: "/account/data/",
+                success: function (result){
+                    //inserting active lisitngs
+                    $("#current-listings-table").html(`<table id="listing-table">
+<tr><th>Image</th><th>Serial</th><th>Price</th><th>Moment</th></tr>
+</table>`)
+                    var i;
+                    for (i=0;i<result['activeListings'].length;i++){
+                        $("<tr><th><img class='listing-image' src='"+result['activeListings'][i]["momentImage"]+"'></th><th class='table-serial'>"+result['activeListings'][i]["serial"]+"</th><th class='table-price'>$"+result['activeListings'][i]["price"]+"</th><th class='table-name'>"+result['activeListings'][i]["momentName"]+"</th><th><button id='"+result['activeListings'][i]['listingId']+"' class='edit-listing'>Edit</button></th></tr>").appendTo("#listing-table")
+                    }
+
+                    $(".edit-listing").click(function(){
+                        //
+                        var listingId = $(this).attr("id")
+                        var imageUrl = $(this).parent().parent().find("img").attr("src")
+                        var serial = $(this).parent().parent().find(".table-serial").html()
+                        var name = $(this).parent().parent().find(".table-name").html()
+                        var price = $(this).parent().parent().find(".table-price").html()
+
+                        $("#fixed-item-container").html(`<div class='fullscreen-opac'></div>
+<div id='edit-listing-window'>
+<input id="listing-id-keeper" type="hidden" value="${listingId}">
+<p id='edit-window-title'>Edit Listing</p>
+<table id="edit-listing-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th></tr>
+<tr><th><img class="listing-image" src="${imageUrl}"></th><th>${serial}</th><th>${name}</th></tr>
+</table>
+<div id="edit-listing-window-nest">
+<table id="pricing-table">
+    <tr>
+        <td>List Price</td>
+        <td><input id="list-price-input" value="${price.split("$")[1]}" type="number" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" ></td>
+    </tr>
+    <tr>
+        <td>Fees<div class="info-circle">&#x1F6C8;<span class="info-circle-content">8% + $0.30</span></div></td>
+        <td><input id="list-price-fees" type="number" readonly></td>
+    </tr>
+    <tr>
+        <td>Payout</td>
+        <td><input id="list-price-payout" type="number" readonly></td>
+    </tr>
+</table>
+<button id="edit-listing-price-update-button" class="edit-listing-method-button">Update List Price</button>
+<button id="edit-listing-cancel-return-button" class="edit-listing-method-button">Cancel Listing</button>
+</div>
+</div>`)
+                        $("#edit-listing-cancel-return-button").click(function(){
+                            $("#edit-listing-window-nest").html(`<p id='edit-window-text'>Are you sure?</p>
+<button id="return-moment-account-submit"  class="edit-listing-method-button">Cancel</button>
+<div id="return-moment-expanded"></div>`)
+                            $("#return-moment-account-submit").click(function(){
+                                $("#return-moment-expanded").html('<div class="loader"></div>')
+                                $.ajax({
+                                    url: "/listing/delist/",
+                                    method: "post",
+                                    data: {
+                                        "csrfmiddlewaretoken": '{{ csrf_token }}',
+                                        'listingId': $("#listing-id-keeper").val(),
+                                        "withdrawUser": $("#return-moment-account").val()
+                                    },
+                                    success: function(result){
+                                        //YUH
+                                        if (result['status'] == 'success'){
+                                            window.location.reload()
+                                        }
+                                        else{
+                                            $("#return-moment-expanded").html("<p>"+result['status']+"</p>")
+                                        }
+
+                                        //YUH
+                                    }
+                                })
+                            })
+
+                        })
+                        $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                        $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+                        $(".fullscreen-opac").click(function(){
+                            $("#fixed-item-container").html("")
+                        })
+                        $("#list-price-input").change(function(){
+                            if ($(this).val() <= 0){
+                                $(this).val(1)
+                            }
+                        $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                        $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+                    })
+
+                    $("#list-price-input").keyup(function(){
+                            if ($(this).val() <= 0){
+                                $(this).val(1)
+                            }
+                        $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                        $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+                    })
+
+                        $("#edit-listing-price-update-button").click(function(){
+                            $(`<div class="loader"></div>`).appendTo("#edit-listing-window")
+                            $.ajax({
+                                url: "/listing/price/update/",
+                                method: "post",
+                                data: {
+                                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                                    'listingId': $("#listing-id-keeper").val(),
+                                    'newPrice': $("#list-price-input").val()
+                                },
+                                success: function(result){
+                                    //
+                                    if (result['status'] == 'success'){
+                                        $("#fixed-item-container").html("")
+                                        window.location.reload()
+                                    }
+
+                                    //
+                                }
+                            })
+                        })
+
+
+                        //
+                    })
+
+                    //inserting wallet amount
+                    $("#wallet-balance-box").find("p").html("$"+result['walletBalance'])
+                    $("#wallet-update").click(function(){
+                        $("#fixed-item-container").html(`<div class='fullscreen-opac'></div>
+<div id="create-wallet-withdraw">
+<input type="hidden" id="wallet-balance" value="${$("#wallet-balance-box p").html().split("$")[1]}">
+<p id='edit-window-title'>Withdraw Amount</p>
+<p id="edit-window-text" style="font-size:1em;">Minimum $10<br>Maximum $${$("#wallet-balance-box p").html().split("$")[1]}</p>
+<input id="withdraw-amount-input" class="withdraw-input" type="number" placeholder="Withdraw Amount">
+<input id="withdraw-email-input" class="withdraw-input" type="text" placeholder="PayPal Email">
+<button id="submit-account-withdraw">Withdraw</button>
+</div>`)
+                        $("#submit-account-withdraw").click(function(){
+                            let re = new RegExp('.+[@].+[.].+');
+                            if (re.test($("#withdraw-email-input").val()) == true && parseFloat($("#withdraw-amount-input").val()) >= 10 && parseFloat($("#withdraw-amount-input").val()) <=  parseFloat($("#wallet-balance").val())) {
+                                $("#create-wallet-withdraw").html(`<p id='edit-window-title'>Verify Information</p>
+<p id="edit-window-text" style="font-size:1em;">Withdraw Amount</p>
+<input id="withdraw-amount-input" class="withdraw-input"  value="${$("#withdraw-amount-input").val()}" readonly>
+<p id="edit-window-text" style="font-size:1em;">Withdraw PayPal Email</p>
+<input id="withdraw-email-input" class="withdraw-input"  value="${$("#withdraw-email-input").val()}" readonly>
+<button id="submit-account-withdraw-2">Confirm Withdraw</button>`)
+                                $("#submit-account-withdraw-2").click(function(){
+                                    var withdrawAmount = $("#withdraw-amount-input").val()
+                                    var withdrawEmail = $("#withdraw-email-input").val()
+                                    $("#create-wallet-withdraw").html("<div class='loader'></div>")
+                                    //AJAX CALL TO SEND TO WITHDRAW QUEUE
+                                    $.ajax({
+                                        url: '/withdraw/',
+                                        method: "post",
+                                        data: {
+                                            "csrfmiddlewaretoken": '{{ csrf_token }}',
+                                            "withdrawAmount": withdrawAmount,
+                                            "withdrawEmail": withdrawEmail
+                                        },
+                                        success: function(result){
+                                            if (result['status'] == 'success'){
+                                                window.location.reload()
+                                            }
+                                            else{
+                                                $("#fixed-item-container").html("")
+                                                alert(result['status'])
+                                            }
+                                        }
+                                    })
+                                })
+                            }
+                        })
+                        $("#wallet-balance").val($("#wallet-balance-box p").html().split("$")[1])
+                        $("#withdraw-amount-input").change(function(){
+                            $(this).val(parseFloat($(this).val()).toFixed(2))
+                        })
+                        $(".fullscreen-opac").click(function(){
+                            $("#fixed-item-container").html("")
+                        })
+                    })
+
+                    //inserting email
+                    $("#email-input").val(result['email'])
+
+                    //inserting awaiting paypal withdraws
+                    $.ajax({
+                        url: "/account/data/pending/wallet/",
+                        success: function(result){
+                            $("#paypal-withdraws-table").html(`<table id="pending-paypal-withdraws-table">
+<tr><th>Withdraw Amount</th><th>Withdraw PayPal Address</th></tr>
+</table>`)
+                            var i;
+                            for (i=0;i<result.length;i++){
+                                $(`<tr><th>$${result[i]['amount']}</th><th>${result[i]['email']}</th></tr>`).appendTo("#pending-paypal-withdraws-table")
+                            }
+                        }
+                    })
+
+                    //inseting pending purchases
+                    $.ajax({
+                        url: '/account/data/pending/',
+                        success: function(result){
+                            $("#pending-withdraw-table").html(`<table id="pending-withdraws-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th><th>Sale Amount</th><th>Days Until Sent</th><th>Sending To</th></tr>
+</table>`)
+                            var i;
+                        for (i=0;i<result.length;i++){
+                            $("<tr><th><img class='listing-image' src='"+result[i]["imagePrefix"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-name'>"+result[i]["name"]+"</th><th>$"+result[i]['saleAmount']+"</th><th>"+result[i]['daysRemaining']+"</th><th>"+result[i]['sendTo']+"</th></tr>").appendTo("#pending-withdraws-table")
+                        }
+                        }
+                    })
+
+                     //inserting pending sales
+                    $.ajax({
+                        url: '/account/data/pending/sales/',
+                        success: function(result){
+                            $("#pending-sale-table").html(`<table id="pending-sales-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th><th>Pending Balance</th><th>Days To Send</th><th>Send Moment To</th></tr>
+</table>`)
+                            var i;
+                        for (i=0;i<result.length;i++){
+                            $("<tr id='"+result[i]['listingId']+"'><th><img class='listing-image' src='"+result[i]["imagePrefix"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-name'>"+result[i]["name"]+"</th><th>+ $"+result[i]['pendingBalance']+"</th><th>"+result[i]['daysRemaining']+"</th><th>"+result[i]['sendTo']+"</th><th><button class='mark-sale-shipped'>Mark as Sent</button><div class='check-sent-div'></div></th></tr>").appendTo("#pending-sales-table")
+                        }
+                        $(".mark-sale-shipped").click(function(){
+                            $(this).parent().find(".check-sent-div").html("<div class='loader'></div>")
+
+                            $.ajax({
+                                url: "/account/sales/check/",
+                                data: {
+                                    "listingId": $(this).parent().parent().attr("id")
+                                },
+                                success: function(result){
+                                    if (result['status'] == "success"){
+                                        window.location.reload()
+                                    }
+                                    else{
+                                        $(".check-sent-div").html("")
+                                        alert(result['status'])
+                                    }
+                                }
+                            })
+
+                        })
+                        }
+                    })
+
+                    //sold/bought listings
+                    $.ajax({
+                        url: "/account/data/sold/",
+                        success: function(result){
+                            $("#sold-listings-table").html(`<table id="sold-listing-table">
+<tr><th>Image</th><th>Serial</th><th>Price</th><th>Moment</th><th>Transaction Type</th></tr>
+</table>`)
+                    var i;
+                    for (i=0;i<result.length;i++){
+                        $("<tr><th><img class='listing-image' src='"+result[i]["momentImage"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-price'>$"+result[i]["price"]+"</th><th class='table-name'>"+result[i]["momentName"]+"</th><th>"+result[i]['transactionType']+"</th></tr>").appendTo("#sold-listing-table")
+                    }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+    <script>
+
+        function account(){
+            $(".main-container").html(`
+ <div id="list-item" class="method-box">
+            <p>List Your Moments</p>
+            <button id="list-moment-button">List Moment</button>
+        </div>
+        <div id="email" class="method-box">
+            <p>Your Email</p>
+            <input type="text" id="email-input" readonly>
+        </div>
+        <div id="wallet" class="method-box">
+            <p>Wallet Balance</p>
+            <div id="wallet-balance-box">
+                <p></p>
+            </div>
+            <button id="wallet-update">Withdraw</button>
+        </div>
+
+
+        <div id="current-listings" class="method-box">
+            <p>Current Listings</p>
+            <div id="current-listings-table">
+    </div>
+         `)
+
+            $.ajax({
+                 url: "/account/data/",
+                success: function(result){
+                     //
+                    //inserting active lisitngs
+                    $("#current-listings-table").html(`<table id="listing-table">
+                        <tr><th>Image</th><th>Serial</th><th>Price</th><th>Moment</th></tr>
+                        </table>`)
+                    var i;
+                    for (i=0;i<result['activeListings'].length;i++){
+                        $("<tr><th><img class='listing-image' src='"+result['activeListings'][i]["momentImage"]+"'></th><th class='table-serial'>"+result['activeListings'][i]["serial"]+"</th><th class='table-price'>$"+result['activeListings'][i]["price"]+"</th><th class='table-name'>"+result['activeListings'][i]["momentName"]+"</th><th><button id='"+result['activeListings'][i]['listingId']+"' class='edit-listing'>Edit</button></th></tr>").appendTo("#listing-table")
+                    }
+                    $(".edit-listing").click(function(){
+                        //
+                        var listingId = $(this).attr("id")
+                        var imageUrl = $(this).parent().parent().find("img").attr("src")
+                        var serial = $(this).parent().parent().find(".table-serial").html()
+                        var name = $(this).parent().parent().find(".table-name").html()
+                        var price = $(this).parent().parent().find(".table-price").html()
+
+                        $("#fixed-item-container").html(`<div class='fullscreen-opac'></div>
+<div id='edit-listing-window'>
+<input id="listing-id-keeper" type="hidden" value="${listingId}">
+<p id='edit-window-title'>Edit Listing</p>
+<table id="edit-listing-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th></tr>
+<tr><th><img class="listing-image" src="${imageUrl}"></th><th>${serial}</th><th>${name}</th></tr>
+</table>
+<div id="edit-listing-window-nest">
+<table id="pricing-table">
+    <tr>
+        <td>List Price</td>
+        <td><input id="list-price-input" value="${price.split("$")[1]}" type="number" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" ></td>
+    </tr>
+    <tr>
+        <td>Fees<div class="info-circle">&#x1F6C8;<span class="info-circle-content">8% + $0.30</span></div></td>
+        <td><input id="list-price-fees" type="number" readonly></td>
+    </tr>
+    <tr>
+        <td>Payout</td>
+        <td><input id="list-price-payout" type="number" readonly></td>
+    </tr>
+</table>
+<button id="edit-listing-price-update-button" class="edit-listing-method-button">Update List Price</button>
+<button id="edit-listing-cancel-return-button" class="edit-listing-method-button">Cancel Listing</button>
+</div>
+</div>`)
+                        $("#edit-listing-cancel-return-button").click(function(){
+                            $("#edit-listing-window-nest").html(`<p id='edit-window-text'>Are you sure?</p>
+<button id="return-moment-account-submit"  class="edit-listing-method-button">Cancel</button>
+<div id="return-moment-expanded"></div>`)
+                            $("#return-moment-account-submit").click(function(){
+                                $("#return-moment-expanded").html('<div class="loader"></div>')
+                                $.ajax({
+                                    url: "/listing/delist/",
+                                    method: "post",
+                                    data: {
+                                        "csrfmiddlewaretoken": '{{ csrf_token }}',
+                                        'listingId': $("#listing-id-keeper").val(),
+                                        "withdrawUser": $("#return-moment-account").val()
+                                    },
+                                    success: function(result){
+                                        //YUH
+                                        if (result['status'] == 'success'){
+                                            window.location.reload()
+                                        }
+                                        else{
+                                            $("#return-moment-expanded").html("<p>"+result['status']+"</p>")
+                                        }
+
+                                        //YUH
+                                    }
+                                })
+                            })
+
+                        })
+                        $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                        $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+                        $(".fullscreen-opac").click(function(){
+                            $("#fixed-item-container").html("")
+                        })
+                        $("#list-price-input").change(function(){
+                            if ($(this).val() <= 0){
+                                $(this).val(1)
+                            }
+                        $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                        $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+                    })
+
+                    $("#list-price-input").keyup(function(){
+                            if ($(this).val() <= 0){
+                                $(this).val(1)
+                            }
+                        $("#list-price-fees").val((($("#list-price-input").val()*0.08)+0.3).toFixed(2))
+                        $("#list-price-payout").val((($("#list-price-input").val()*0.92)-0.3).toFixed(2))
+                    })
+
+                        $("#edit-listing-price-update-button").click(function(){
+                            $(`<div class="loader"></div>`).appendTo("#edit-listing-window")
+                            $.ajax({
+                                url: "/listing/price/update/",
+                                method: "post",
+                                data: {
+                                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                                    'listingId': $("#listing-id-keeper").val(),
+                                    'newPrice': $("#list-price-input").val()
+                                },
+                                success: function(result){
+                                    //
+                                    if (result['status'] == 'success'){
+                                        $("#fixed-item-container").html("")
+                                        window.location.reload()
+                                    }
+
+                                    //
+                                }
+                            })
+                        })
+
+
+                        //
+                    })
+                    $("#wallet-balance-box").find("p").html("$"+result['walletBalance'])
+                                        $("#wallet-update").click(function(){
+                        $("#fixed-item-container").html(`<div class='fullscreen-opac'></div>
+<div id="create-wallet-withdraw">
+<input type="hidden" id="wallet-balance" value="${$("#wallet-balance-box p").html().split("$")[1]}">
+<p id='edit-window-title'>Withdraw Amount</p>
+<p id="edit-window-text" style="font-size:1em;">Minimum $10<br>Maximum $${$("#wallet-balance-box p").html().split("$")[1]}</p>
+<input id="withdraw-amount-input" class="withdraw-input" type="number" placeholder="Withdraw Amount">
+<input id="withdraw-email-input" class="withdraw-input" type="text" placeholder="PayPal Email">
+<button id="submit-account-withdraw">Withdraw</button>
+</div>`)
+                        $("#submit-account-withdraw").click(function(){
+                            let re = new RegExp('.+[@].+[.].+');
+                            if (re.test($("#withdraw-email-input").val()) == true && parseFloat($("#withdraw-amount-input").val()) >= 10 && parseFloat($("#withdraw-amount-input").val()) <=  parseFloat($("#wallet-balance").val())) {
+                                $("#create-wallet-withdraw").html(`<p id='edit-window-title'>Verify Information</p>
+<p id="edit-window-text" style="font-size:1em;">Withdraw Amount</p>
+<input id="withdraw-amount-input" class="withdraw-input"  value="${$("#withdraw-amount-input").val()}" readonly>
+<p id="edit-window-text" style="font-size:1em;">Withdraw PayPal Email</p>
+<input id="withdraw-email-input" class="withdraw-input"  value="${$("#withdraw-email-input").val()}" readonly>
+<button id="submit-account-withdraw-2">Confirm Withdraw</button>`)
+                                $("#submit-account-withdraw-2").click(function(){
+                                    var withdrawAmount = $("#withdraw-amount-input").val()
+                                    var withdrawEmail = $("#withdraw-email-input").val()
+                                    $("#create-wallet-withdraw").html("<div class='loader'></div>")
+                                    //AJAX CALL TO SEND TO WITHDRAW QUEUE
+                                    $.ajax({
+                                        url: '/withdraw/',
+                                        method: "post",
+                                        data: {
+                                            "csrfmiddlewaretoken": '{{ csrf_token }}',
+                                            "withdrawAmount": withdrawAmount,
+                                            "withdrawEmail": withdrawEmail
+                                        },
+                                        success: function(result){
+                                            if (result['status'] == 'success'){
+                                                window.location.reload()
+                                            }
+                                            else{
+                                                $("#fixed-item-container").html("")
+                                                alert(result['status'])
+                                            }
+                                        }
+                                    })
+                                })
+                            }
+                        })
+                        $("#wallet-balance").val($("#wallet-balance-box p").html().split("$")[1])
+                        $("#withdraw-amount-input").change(function(){
+                            $(this).val(parseFloat($(this).val()).toFixed(2))
+                        })
+                        $(".fullscreen-opac").click(function(){
+                            $("#fixed-item-container").html("")
+                        })
+                    })
+                     //inserting email
+                    $("#email-input").val(result['email'])
+
+
+//
+                }
+            })
+
+        }
+        function pending(){
+            $(".main-container").html(`
+
+        <div id="paypal-withdraws" class="method-box">
+            <p>Pending PayPal Withdraws</p>
+            <div id="paypal-withdraws-table">
+            </div>
+        </div>
+         <div id="pending-withdraws" class="method-box">
+            <p>Pending Purchases</p>
+            <div id="pending-withdraw-table">
+
+            </div>
+        </div>
+
+        <div id="pending-sales" class="method-box">
+            <p>Pending Sales</p>
+            <div id="pending-sale-table">
+
+            </div>
+        </div>`)
+            //inserting awaiting paypal withdraws
+                    $.ajax({
+                        url: "/account/data/pending/wallet/",
+                        success: function(result){
+                            $("#paypal-withdraws-table").html(`<table id="pending-paypal-withdraws-table">
+<tr><th>Withdraw Amount</th><th>Withdraw PayPal Address</th></tr>
+</table>`)
+                            var i;
+                            for (i=0;i<result.length;i++){
+                                $(`<tr><th>$${result[i]['amount']}</th><th>${result[i]['email']}</th></tr>`).appendTo("#pending-paypal-withdraws-table")
+                            }
+                        }
+                    })
+            //
+
+             //inserting pending sales
+                    $.ajax({
+                        url: '/account/data/pending/sales/',
+                        success: function(result){
+                            $("#pending-sale-table").html(`<table id="pending-sales-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th><th>Pending Balance</th><th>Days To Send</th><th>Send Moment To</th></tr>
+</table>`)
+                            var i;
+                        for (i=0;i<result.length;i++){
+                            $("<tr id='"+result[i]['listingId']+"'><th><img class='listing-image' src='"+result[i]["imagePrefix"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-name'>"+result[i]["name"]+"</th><th>+ $"+result[i]['pendingBalance']+"</th><th>"+result[i]['daysRemaining']+"</th><th>"+result[i]['sendTo']+"</th><th><button class='mark-sale-shipped'>Mark as Sent</button><div class='check-sent-div'></div></th></tr>").appendTo("#pending-sales-table")
+                        }
+                        $(".mark-sale-shipped").click(function(){
+                            $(this).parent().find(".check-sent-div").html("<div class='loader'></div>")
+
+                            $.ajax({
+                                url: "/account/sales/check/",
+                                data: {
+                                    "listingId": $(this).parent().parent().attr("id")
+                                },
+                                success: function(result){
+                                    if (result['status'] == "success"){
+                                        window.location.reload()
+                                    }
+                                    else{
+                                        $(".check-sent-div").html("")
+                                        alert(result['status'])
+                                    }
+                                }
+                            })
+
+                        })
+                        }
+                    })
+
+             //inseting pending purchases
+                    $.ajax({
+                        url: '/account/data/pending/',
+                        success: function(result){
+                            $("#pending-withdraw-table").html(`<table id="pending-withdraws-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th><th>Sale Amount</th><th>Days Until Sent</th><th>Sending To</th></tr>
+</table>`)
+                            var i;
+                        for (i=0;i<result.length;i++){
+                            $("<tr><th><img class='listing-image' src='"+result[i]["imagePrefix"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-name'>"+result[i]["name"]+"</th><th>$"+result[i]['saleAmount']+"</th><th>"+result[i]['daysRemaining']+"</th><th>"+result[i]['sendTo']+"</th></tr>").appendTo("#pending-withdraws-table")
+                        }
+                        }
+                    })
+
+            //
+        }
+
+        function completed(){
+            $(".main-container").html(`
+        <div id="sold-listings" class="method-box">
+            <p>Sales and Purchases</p>
+            <div id="sold-listings-table">
+
+            </div>
+        </div>
+
+        <div id="completed-wallet-withdraws" class="method-box">
+            <p>Completed Wallet Withdraws</p>
+            <div id="completed-wallet-table">
+
+            </div>
+        </div>
+
+           `)
+
+              //sold/bought listings
+                    $.ajax({
+                        url: "/account/data/sold/",
+                        success: function(result){
+                            $("#sold-listings-table").html(`<table id="sold-listing-table">
+<tr><th>Image</th><th>Serial</th><th>Price</th><th>Moment</th><th>Transaction Type</th></tr>
+</table>`)
+                    var i;
+                    for (i=0;i<result.length;i++){
+                        $("<tr><th><img class='listing-image' src='"+result[i]["momentImage"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-price'>$"+result[i]["price"]+"</th><th class='table-name'>"+result[i]["momentName"]+"</th><th>"+result[i]['transactionType']+"</th></tr>").appendTo("#sold-listing-table")
+                    }
+                        }
+                    })
+
+            //completed wallet withdraws
+             $.ajax({
+                        url: "/account/data/completed/wallet/",
+                        success: function(result){
+                            $("#completed-wallet-table").html(`<table id="completed-wallet-withdraw-table">
+<tr><th>Withdraw Amount</th><th>Withdraw Address</th></tr>
+</table>`)
+                    var i;
+                    for (i=0;i<result.length;i++){
+                        $("<tr><th>"+result[i]['amount']+"</th><th>"+result[i]['email']+"</th></tr>").appendTo("#completed-wallet-withdraw-table")
+                    }
+                        }
+                    })
+        }
+
+    </script>
+</head>
+<body>
+    <div id="fixed-item-container">
+
+    </div>
+<div class="navbar-container">
+    <div id="title">
+        <p>DigiShop</p>
+    </div>
+    <div id="search-bar">
+        <input id="bar-seg-1" placeholder="Search Players">
+    </div>
+    <div id="user-account">
+        <img src="https://storage.googleapis.com/dapper-profile-icons/avatar-default.png">
+    </div>
+</div>
+<div id="suggestions-box"></div>
+
+<h2>User Account - {{username}}</h2>
+    <script>
+        $(document).ready(function(){
+            $(".tab-box").click(function(){
+                $(".tab-box").attr("class", "tab-box unselected")
+                $(this).attr("class", "tab-box selected")
+                if ($(this).attr("id") == "account"){
+                    account();
+                }
+                else if ($(this).attr("id") == "pending"){
+                    pending();
+                }
+                 else if ($(this).attr("id") == "completed"){
+                    completed();
+                }
+            })
+        })
+    </script>
+<div class="main-container-tabs">
+    <div class="tab-box selected" id="account">Account</div>
+    <div class="tab-box unselected" id="pending">Pending</div>
+    <div class="tab-box unselected" id="completed">Completed</div>
+</div>
+<div class="main-container">
+        <div id="list-item" class="method-box">
+            <p>List Your Moments</p>
+            <button id="list-moment-button">List Moment</button>
+        </div>
+        <div id="email" class="method-box">
+            <p>Your Email</p>
+            <input type="text" id="email-input" readonly>
+        </div>
+        <div id="wallet" class="method-box">
+            <p>Wallet Balance</p>
+            <div id="wallet-balance-box">
+                <p></p>
+            </div>
+            <button id="wallet-update">Withdraw</button>
+        </div>
+
+        <div id="paypal-withdraws" class="method-box">
+            <p>Pending PayPal Withdraws</p>
+            <div id="paypal-withdraws-table">
+            </div>
+        </div>
+        <div id="current-listings" class="method-box">
+            <p>Current Listings</p>
+            <div id="current-listings-table">
+            </div>
+
+        </div>
+        <div id="sold-listings" class="method-box">
+            <p>Sales and Purchases</p>
+            <div id="sold-listings-table">
+
+            </div>
+        </div>
+        <div id="pending-withdraws" class="method-box">
+            <p>Pending Purchases</p>
+            <div id="pending-withdraw-table">
+
+            </div>
+        </div>
+
+        <div id="pending-sales" class="method-box">
+            <p>Pending Sales</p>
+            <div id="pending-sale-table">
+
+            </div>
+        </div>
+</div>
+{% csrf_token %}
+</body>
+
+</html>

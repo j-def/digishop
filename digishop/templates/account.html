@@ -5,7 +5,20 @@
            @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
      body{
         font-family: 'Alata', sans-serif;
+         background-color: #f0f0f0;
      }
+           button{
+            border: 0;
+            padding: 5px 10px 5px 10px;
+            border-radius:5px;
+            background-color: #0d0069;
+            color: white;
+            transition: 0.3s;
+        }
+        button:hover{
+            background-color: #D4AF37;
+            color: black;
+        }
      h1{
         text-align:center;
      }
@@ -217,7 +230,42 @@
       margin-left: 5%;
       margin-right: 5%;
   }
+  .main-container-tabs{
+    width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+  }
+  .tab-box{
+            z-index: 98;
 
+      transform: translateY(1px);
+      height: 2em;
+      padding: 10px 10px 10px 10px;
+      width: fit-content;
+      border: solid 1px black;
+      font-size: 1.25em;
+      border-radius: 5px 5px 0px 0px;
+      margin-right: 5px;
+      background-color: #cdcdcd;
+  }
+  .unselected:hover{
+      background-color: #e6e6e6;
+  }
+  .selected{
+      border-bottom: solid 1px white;
+      background-color: white;
+  }
+    .main-container{
+        padding-top: 25px;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        border: solid 1px black;
+        border-radius: 0px 10px 10px 10px;
+        transform: translateX(1px);
+        background-color: white;
+    }
   #pricing-table{
       margin-left: auto;
       margin-right: auto;
@@ -386,49 +434,59 @@
             $("#user-account").click(function () {
                 window.location.href = "/account/"
             })
-            $("#list-moment-button").click(function(){
-                window.location.href = "/listing/"
-            })
+
         })
 
     </script>
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
             $("#title").click(function () {
                 window.location.href = "/"
             })
-            $("#email-update").click(function() {
-                let re = new RegExp('.+[@].+[.].+');
-                var email = $("#email-input").val();
-                if (re.test(email) == true) {
-                    $.ajax({
-                        url: "/account/update/email/",
-                        data: {
-                            'email': email
-                        },
-                        success: function (result) {
-                            if (result == "success"){
-                                alert("Email successfully changed")
-                            }
-                        }
-                    })
-                } else{
-                    alert("Email is not valid")
-                }
+        })
+    </script>
+    <script>
+
+        function account(){
+            $(".main-container").html(`
+ <div id="list-item" class="method-box">
+            <p>List Your Moments</p>
+            <button id="list-moment-button">List Moment</button>
+        </div>
+        <div id="email" class="method-box">
+            <p>Your Email</p>
+            <input type="text" id="email-input" readonly>
+        </div>
+        <div id="wallet" class="method-box">
+            <p>Wallet Balance</p>
+            <div id="wallet-balance-box">
+                <p></p>
+            </div>
+            <button id="wallet-update">Withdraw</button>
+        </div>
+
+
+        <div id="current-listings" class="method-box">
+            <p>Current Listings</p>
+            <div id="current-listings-table">
+    </div>
+         `)
+                        $("#list-moment-button").click(function(){
+                window.location.href = "/listing/"
             })
-            $.a
+
             $.ajax({
-                url: "/account/data/",
-                success: function (result){
+                 url: "/account/data/",
+                success: function(result){
+                     //
                     //inserting active lisitngs
                     $("#current-listings-table").html(`<table id="listing-table">
-<tr><th>Image</th><th>Serial</th><th>Price</th><th>Moment</th></tr>
-</table>`)
+                        <tr><th>Image</th><th>Serial</th><th>Price</th><th>Moment</th></tr>
+                        </table>`)
                     var i;
                     for (i=0;i<result['activeListings'].length;i++){
                         $("<tr><th><img class='listing-image' src='"+result['activeListings'][i]["momentImage"]+"'></th><th class='table-serial'>"+result['activeListings'][i]["serial"]+"</th><th class='table-price'>$"+result['activeListings'][i]["price"]+"</th><th class='table-name'>"+result['activeListings'][i]["momentName"]+"</th><th><button id='"+result['activeListings'][i]['listingId']+"' class='edit-listing'>Edit</button></th></tr>").appendTo("#listing-table")
                     }
-
                     $(".edit-listing").click(function(){
                         //
                         var listingId = $(this).attr("id")
@@ -461,13 +519,12 @@
     </tr>
 </table>
 <button id="edit-listing-price-update-button" class="edit-listing-method-button">Update List Price</button>
-<button id="edit-listing-cancel-return-button" class="edit-listing-method-button">Cancel Listing and Return</button>
+<button id="edit-listing-cancel-return-button" class="edit-listing-method-button">Cancel Listing</button>
 </div>
 </div>`)
                         $("#edit-listing-cancel-return-button").click(function(){
-                            $("#edit-listing-window-nest").html(`<p id='edit-window-text'>Send to TopShot Account</p>
-<input type="text" id="return-moment-account" class="edit-listing-method-button" placeholder="TopShot Username">
-<button id="return-moment-account-submit"  class="edit-listing-method-button">Return</button>
+                            $("#edit-listing-window-nest").html(`<p id='edit-window-text'>Are you sure?</p>
+<button id="return-moment-account-submit"  class="edit-listing-method-button">Cancel</button>
 <div id="return-moment-expanded"></div>`)
                             $("#return-moment-account-submit").click(function(){
                                 $("#return-moment-expanded").html('<div class="loader"></div>')
@@ -540,10 +597,8 @@
 
                         //
                     })
-
-                    //inserting wallet amount
                     $("#wallet-balance-box").find("p").html("$"+result['walletBalance'])
-                    $("#wallet-update").click(function(){
+                                        $("#wallet-update").click(function(){
                         $("#fixed-item-container").html(`<div class='fullscreen-opac'></div>
 <div id="create-wallet-withdraw">
 <input type="hidden" id="wallet-balance" value="${$("#wallet-balance-box p").html().split("$")[1]}">
@@ -573,7 +628,7 @@
                                         data: {
                                             "csrfmiddlewaretoken": '{{ csrf_token }}',
                                             "withdrawAmount": withdrawAmount,
-                                            "withdrawEmail": withdrawE
+                                            "withdrawEmail": withdrawEmail
                                         },
                                         success: function(result){
                                             if (result['status'] == 'success'){
@@ -596,25 +651,121 @@
                             $("#fixed-item-container").html("")
                         })
                     })
+                     //inserting email
+                    $("#email-input").val(result['email'])
 
-                    //inserting email
-                    $("#email-input").attr("placeholder", result['email'])
 
-                    //inseting pending withdraws
+//
+                }
+            })
+
+        }
+        function pending(){
+            $(".main-container").html(`
+
+        <div id="paypal-withdraws" class="method-box">
+            <p>Pending PayPal Withdraws</p>
+            <div id="paypal-withdraws-table">
+            </div>
+        </div>
+         <div id="pending-withdraws" class="method-box">
+            <p>Pending Purchases</p>
+            <div id="pending-withdraw-table">
+
+            </div>
+        </div>
+
+        <div id="pending-sales" class="method-box">
+            <p>Pending Sales</p>
+            <div id="pending-sale-table">
+
+            </div>
+        </div>`)
+            //inserting awaiting paypal withdraws
                     $.ajax({
-                        url: '/account/data/pending/',
+                        url: "/account/data/pending/wallet/",
                         success: function(result){
-                            $("#pending-withdraw-table").html(`<table id="sold-listing-table">
-<tr><th>Image</th><th>Serial</th><th>Moment</th><th>Sending To</th></tr>
+                            $("#paypal-withdraws-table").html(`<table id="pending-paypal-withdraws-table">
+<tr><th>Withdraw Amount</th><th>Withdraw PayPal Address</th></tr>
+</table>`)
+                            var i;
+                            for (i=0;i<result.length;i++){
+                                $(`<tr><th>$${result[i]['amount']}</th><th>${result[i]['email']}</th></tr>`).appendTo("#pending-paypal-withdraws-table")
+                            }
+                        }
+                    })
+            //
+
+             //inserting pending sales
+                    $.ajax({
+                        url: '/account/data/pending/sales/',
+                        success: function(result){
+                            $("#pending-sale-table").html(`<table id="pending-sales-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th><th>Pending Balance</th><th>Days To Send</th><th>Send Moment To</th></tr>
 </table>`)
                             var i;
                         for (i=0;i<result.length;i++){
-                            $("<tr><th><img class='listing-image' src='"+result[i]["imagePrefix"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-name'>"+result[i]["name"]+"</th><th>"+result[i]['sendTo']+"</th></tr>").appendTo("#sold-listing-table")
+                            $("<tr id='"+result[i]['listingId']+"'><th><img class='listing-image' src='"+result[i]["imagePrefix"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-name'>"+result[i]["name"]+"</th><th>+ $"+result[i]['pendingBalance']+"</th><th>"+result[i]['daysRemaining']+"</th><th>"+result[i]['sendTo']+"</th><th><button class='mark-sale-shipped'>Mark as Sent</button><div class='check-sent-div'></div></th></tr>").appendTo("#pending-sales-table")
+                        }
+                        $(".mark-sale-shipped").click(function(){
+                            $(this).parent().find(".check-sent-div").html("<div class='loader'></div>")
+
+                            $.ajax({
+                                url: "/account/sales/check/",
+                                data: {
+                                    "listingId": $(this).parent().parent().attr("id")
+                                },
+                                success: function(result){
+                                    if (result['status'] == "success"){
+                                        window.location.reload()
+                                    }
+                                    else{
+                                        $(".check-sent-div").html("")
+                                        alert(result['status'])
+                                    }
+                                }
+                            })
+
+                        })
+                        }
+                    })
+
+             //inseting pending purchases
+                    $.ajax({
+                        url: '/account/data/pending/',
+                        success: function(result){
+                            $("#pending-withdraw-table").html(`<table id="pending-withdraws-table">
+<tr><th>Image</th><th>Serial</th><th>Moment</th><th>Sale Amount</th><th>Days Until Sent</th><th>Sending To</th></tr>
+</table>`)
+                            var i;
+                        for (i=0;i<result.length;i++){
+                            $("<tr><th><img class='listing-image' src='"+result[i]["imagePrefix"]+"'></th><th class='table-serial'>"+result[i]["serial"]+"</th><th class='table-name'>"+result[i]["name"]+"</th><th>$"+result[i]['saleAmount']+"</th><th>"+result[i]['daysRemaining']+"</th><th>"+result[i]['sendTo']+"</th></tr>").appendTo("#pending-withdraws-table")
                         }
                         }
                     })
 
-                    //sold/bought listings
+            //
+        }
+
+        function completed(){
+            $(".main-container").html(`
+        <div id="sold-listings" class="method-box">
+            <p>Sales and Purchases</p>
+            <div id="sold-listings-table">
+
+            </div>
+        </div>
+
+        <div id="completed-wallet-withdraws" class="method-box">
+            <p>Completed Wallet Withdraws</p>
+            <div id="completed-wallet-table">
+
+            </div>
+        </div>
+
+           `)
+
+              //sold/bought listings
                     $.ajax({
                         url: "/account/data/sold/",
                         success: function(result){
@@ -627,10 +778,31 @@
                     }
                         }
                     })
-                }
-            })
-        })
+
+            //completed wallet withdraws
+             $.ajax({
+                        url: "/account/data/completed/wallet/",
+                        success: function(result){
+                            $("#completed-wallet-table").html(`<table id="completed-wallet-withdraw-table">
+<tr><th>Withdraw Amount</th><th>Withdraw Address</th></tr>
+</table>`)
+                    var i;
+                    for (i=0;i<result.length;i++){
+                        $("<tr><th>"+result[i]['amount']+"</th><th>"+result[i]['email']+"</th></tr>").appendTo("#completed-wallet-withdraw-table")
+                    }
+                        }
+                    })
+        }
+
     </script>
+        <style>
+           .title-logo{
+               margin-top: 20px;
+               height: 100px;
+               margin-left: 30px;
+               margin-bottom: 30px;
+           }
+       </style>
 </head>
 <body>
     <div id="fixed-item-container">
@@ -638,7 +810,8 @@
     </div>
 <div class="navbar-container">
     <div id="title">
-        <p>DigiShop</p>
+        {% load static %}
+        <img class="title-logo" src="{% static "logo.png" %}">
     </div>
     <div id="search-bar">
         <input id="bar-seg-1" placeholder="Search Players">
@@ -648,44 +821,45 @@
     </div>
 </div>
 <div id="suggestions-box"></div>
+
 <h2>User Account - {{username}}</h2>
-<div id="list-item" class="method-box">
-    <p>List Your Moments</p>
-    <button id="list-moment-button">List Moment</button>
+    <script>
+        $(document).ready(function(){
+            account();
+            $(".tab-box").click(function(){
+                $(".tab-box").attr("class", "tab-box unselected")
+                $(this).attr("class", "tab-box selected")
+                if ($(this).attr("id") == "account"){
+                    account();
+                }
+                else if ($(this).attr("id") == "pending"){
+                    pending();
+                }
+                 else if ($(this).attr("id") == "completed"){
+                    completed();
+                }
+            })
+        })
+    </script>
+<div class="main-container-tabs">
+    <div class="tab-box selected" id="account">Account</div>
+    <div class="tab-box unselected" id="pending">Pending</div>
+    <div class="tab-box unselected" id="completed">Completed</div>
 </div>
-<div id="email" class="method-box">
-    <p>Add Your Email</p>
-    <input type="text" id="email-input">
-    <button id="email-update">Update</button>
-</div>
-<div id="wallet" class="method-box">
-    <p>Wallet Balance</p>
-    <div id="wallet-balance-box">
-        <p></p>
-    </div>
-    <button id="wallet-update">Withdraw</button>
-</div>
-<div id="current-listings" class="method-box">
-    <p>Current Listings</p>
-    <div id="current-listings-table">
+<div class="main-container">
 
-    </div>
-
 </div>
-<div id="sold-listings" class="method-box">
-    <p>Sold/Bought Listings</p>
-    <div id="sold-listings-table">
-
-    </div>
-</div>
-<div id="pending-withdraws" class="method-box">
-    <p>Pending Withdraws</p>
-    <div id="pending-withdraw-table">
-
-    </div>
-</div>
-
 {% csrf_token %}
+<style>
+         #bottom-text{
+            font-size: 0.75em;
+            text-align:center;
+            margin-bottom: 0px;
+        }
+      </style>
+   <p id="bottom-text">
+2021&#169; Digishop LLC - <a href="/aboutus/">About Us</a> - <a href="/terms/">Terms</a> - <a href="/privacy/">Privacy Policy</a>
+</p>
 </body>
 
 </html>

@@ -18,26 +18,41 @@
         }
 
         .container {
+            margin-top: 25px;
             display: flex;
+            flex-wrap: wrap;
             width: 80%;
             margin-left: auto;
             margin-right: auto;
         }
 
         .stats-box {
-            width: 50%;
-            float: left;
-            border: solid 1px black;
+            flex-grow: 1;
             padding: 10px 10px 10px 10px;
         }
 
         .listings-box {
+            flex-grow:1;
             width: 50%;
-            float: right;
-            border: solid 1px black;
+            border:0;
+            border-radius: 5px;
             padding: 10px 10px 10px 10px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            background-color: white;
         }
-
+        button{
+            border: 0;
+            padding: 5px 10px 5px 10px;
+            border-radius:5px;
+            background-color: #0d0069;
+            color: white;
+            transition: 0.3s;
+        }
+        button:hover{
+            background-color: #D4AF37;
+            color: black;
+        }
         #statistic-table-div {
             width: 100%;
         }
@@ -107,6 +122,7 @@
             padding: 0;
             margin: 0;
             min-width: 500px;
+            background-color: #f0f0f0;
         }
 
         .navbar-container {
@@ -181,11 +197,86 @@
             height: auto;
             max-height: 500px;
             overflow: auto;
+            transition: 0.5s;
         }
 
         .suggestion {
         }
+ .moment{
+      border: solid 6px #D4AF37;
+      border-radius: 10px;
+      width: 50%;
+        min-width: 250px;
+      font-family: 'Alata', sans-serif;
+      background-color: #060030;
+      color: white;
+      padding-bottom: 5px;
+      transition: 0.6s;
+     margin-left: auto;
+     margin-right: auto;
+  }
+  .moment:hover{
+      transform: scale(1.4);
+  }
 
+.moment-player-name{
+  padding: 10px 0px 5px 10px;
+  text-align: left;
+  font-size: 1em;
+}
+.moment-image-row{
+  background-color: black;
+  width:90%;
+  margin-left: 5%;
+  border-radius: 5px;
+  border: solid 2px white;
+
+}
+.moment-image{
+  height: 125px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+}
+.row{
+  width: 100%;
+  display: flex;
+  font-size: 1m;
+}
+.row-t-1{
+  width: 40%;
+  padding-left: 20px;
+  margin-top: 1px;
+}
+.row-t-2{
+   width: 40%;
+  text-align:right;
+  margin-top: 1px;
+}
+#moment-specific-images{
+    width: 175px;
+    margin-left: auto;
+    margin-right:auto;
+    display: flex;
+}
+.series-container{
+
+  color: black;
+  width: fit-content;
+  border-radius: 2px;
+  height: 1.5em;
+  font-size: 0.85em;
+  background: #D4AF37;
+background: linear-gradient(to bottom, #D4AF37 0%, #C5A028 100%);
+
+  padding: 3px 3px 3px 3px;
+  text-align:center;
+  float: right;
+  margin-right: 15px;
+  transform: skewX(-15deg) translateY(-50%);
+
+
+}
         .loader {
             margin-top: 15px;
             margin-left: auto;
@@ -208,79 +299,8 @@
             }
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        //Load statistics box
-        $(document).ready(function () {
-            $("#title").click(function () {
-                window.location.href = "/"
-            })
-            $.ajax({
-                url: "/moment/statistics/",
-                data: {
-                    'momentId': $("#moment-id-save").val()
-                },
-                success: function (result) {
-                    $("#statistic-table-div").html(`<table id='statistics-table'>
-         <tr><th>Set Name</th><th>${result['setName']}</th></tr>
-         <tr><th>Series No.</th><th>${result['seriesNo']}</th></tr>
-         <tr><th>Player Team</th><th>${result['playerTeam']}</th></tr>
-         <tr><th>Play Category</th><th>${result['playCategory']}</th></tr>
-         <tr><th>Circulation Count</th><th>${result['circulationCount']}</th></tr>`)
-                    $(`<div class="container-images">
-         <video class="video" autoplay loop>
-         <source src="${result['imagePrefix']}Animated_1080_1920_Black.mp4" type="video/mp4">
-         </video>
-         <img class="img" src="${result['imagePrefix']}Game_2880_2880_Black.jpg">
-         <img class="img" src="${result['imagePrefix']}Category_2880_2880_Black.jpg">
-         <img class="img" src="${result['imagePrefix']}Hero_2880_2880_Black.jpg">
-         <img class="img" src="${result['imagePrefix']}ReverseHero_2880_2880_Black.jpg">
-         <img class="img" src="${result['imagePrefix']}Logos_2880_2880_Black.jpg">
-         </div>`).appendTo(".stats-box")
-                }
-            })
-            $.ajax({
-                url: "/moment/listings/",
-                data: {
-                    "momentId": $("#moment-id-save").val()
-                },
-                success: function (result) {
-                    $(".listing-table-div").html(`<table id="listings-table">
-         <tr><th>Serial</th><th>Withdraw in</th><th>Price</th><th>Select</th></tr>
-         </table>`)
-                    var i;
-                    for (i = 0; i < result.length; i++) {
-                        days = (7 - result[i]["daysListed"]).toString()+" Days"
-                        if (result[i]["daysListed"] > 6){
-                            days = "Available Now"
-                        }
-                        $("<tr><th>" + result[i]["serial"] + "</th><th>"+ days +"</th><th>$" + result[i]["price"] + "</th><th><button class='purchase-button' id='" + result[i]["listing"] + "'>Buy Now</button></th></tr>").appendTo("#listings-table")
-                    }
-                    $(".purchase-button").click(function () {
-                        window.location.href = "/purchase/?listingId=" + $(this).attr("id")
-                    })
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-                }
-            })
-            $.ajax({
-                url: "/moment/listings/sold",
-                data: {
-                    "momentId": $("#moment-id-save").val()
-                },
-                success: function (result) {
-                    $(".sold-listing-table-div").html(`<table id="sold-c-listings-table">
-         <tr><th>Serial</th><th>Price</th><th>Date Sold</th></tr>
-         </table>`)
-                    var i;
-                    for (i = 0; i < result.length; i++) {
-                        $("<tr><th>" + result[i]["serial"] + "</th><th>$" + result[i]["price"] + "</th><th>" + result[i]["date"] + "</th></tr>").appendTo("#sold-c-listings-table")
-                    }
-
-
-                }
-            })
-        })
-    </script>
     <script>
         function moment_search() {
             var name = $("#bar-seg-1").val()
@@ -438,11 +458,119 @@
         })
 
     </script>
+    <script>
+        $(document).ready(function () {
+            $("#title").click(function () {
+                window.location.href = "/"
+            })
+            //statistics
+            $.ajax({
+                url: "/moment/statistics/",
+                data: {
+                    'momentId': $("#moment-id-save").val()
+                },
+                success: function (result) {
+                    $("#statistics-box-div").html(`<div  class="moment">
+<div class="moment-player-name">
+    ${result['name']}
+  </div>
+  <div class="moment-image-row">
+  <img class="moment-image" src="${result['image']}">
+  </div>
+  <div class="series-container ">
+    Max. Serial: ${result['circulationCount']}
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+        ${result['set']}
+    </p>
+    <p class="row-t-2">
+    ${result['series']  }
+    </p>
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result['playCategory']  }
+    </p>
+    <p class="row-t-2">
+    ${result['date']  }
+    </p>
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result['playerTeam']  }
+    </p>
+    <p class="row-t-2">
+    ${result['listings']  }
+    </p>
+  </div>
+</div>
+<br>
+<div  class="moment" style="background-color:black;margin-top:25px">
+<div id="moment-specific-images">
+    <video style="flex-grow:1;width: 175px;margin-right:50%;" autoplay src="${result['imagePrefix']}Animated_1080_1920_Black.mp4" autoplay muted loop></video>
+</div>
+</div>
+`)
+
+                }
+            })
+
+            //active listings
+            $.ajax({
+                url: "/moment/listings/",
+                data: {
+                    "momentId": $("#moment-id-save").val()
+                },
+                success: function (result) {
+                    $(".listing-table-div").html(`<table id="listings-table">
+         <tr><th>Serial</th><th>Price</th><th>Select</th></tr>
+         </table>`)
+                    var i;
+                    for (i = 0; i < result.length; i++) {
+
+                        $("<tr><th>" + result[i]["serial"] + "</th><th>$" + result[i]["price"] + "</th><th><button class='purchase-button' id='" + result[i]["listing"] + "'>Buy Now</button></th></tr>").appendTo("#listings-table")
+                    }
+                    $(".purchase-button").click(function () {
+                        window.location.href = "/purchase/?listingId=" + $(this).attr("id")
+                    })
+
+                }
+            })
+            //sold listings
+            $.ajax({
+                url: "/moment/listings/sold",
+                data: {
+                    "momentId": $("#moment-id-save").val()
+                },
+                success: function (result) {
+                    $(".sold-listing-table-div").html(`<table id="sold-c-listings-table">
+         <tr><th>Serial</th><th>Price</th><th>Date Sold</th></tr>
+         </table>`)
+                    var i;
+                    for (i = 0; i < result.length; i++) {
+                        $("<tr><th>" + result[i]["serial"] + "</th><th>$" + result[i]["price"] + "</th><th>" + result[i]["dateSold"] + "</th></tr>").appendTo("#sold-c-listings-table")
+                    }
+
+
+                }
+            })
+        })
+    </script>
+       <style>
+           .title-logo{
+               margin-top: 20px;
+               height: 100px;
+               margin-left: 30px;
+               margin-bottom: 30px;
+           }
+       </style>
 </head>
 <body>
 <div class="navbar-container">
     <div id="title">
-        <p>DigiShop</p>
+        {% load static %}
+        <img class="title-logo" src="{% static "logo.png" %}">
     </div>
     <div id="search-bar">
         <input id="bar-seg-1" placeholder="Search Players">
@@ -452,11 +580,9 @@
 </div>
 <div id="suggestions-box"></div>
 <input type="hidden" id="moment-id-save" value="{{momentId}}">
-<h2>{{playerName}} | {{momentCategory}} | {{momentDate}}</h2>
 <div class="container">
     <div class="stats-box">
-        <h2>Stats</h2>
-        <div id="statistic-table-div">
+        <div id="statistics-box-div">
             <div class="loader"></div>
         </div>
     </div>

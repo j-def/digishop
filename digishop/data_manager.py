@@ -84,6 +84,49 @@ class manager:
             if moment['id'] == id:
                 return True
         return False
+    def check_user_for_moment_by_id_specific(self, username, id):
+        r = requests.get("https://www.nbatopshot.com/user/@" + username + "/moments")
+        rShaven = r.text[r.text.find("publicInfo"):r.text.rfind('"username"')]
+        dapperId = rShaven[rShaven.find("\"dapperID\":\"") + len("\"dapperID\":\""):rShaven.find("\",\"username\":")]
+        headers = {
+            'accept': "*/*",
+            'accept-encoding': 'gzip, deflate, br',
+            'accept-language': 'en-US,en;q=0.9',
+            'content-type': 'application/json',
+            'dnt': '1',
+            'origin': 'https://www.nbatopshot.com',
+            'referer': 'https://www.nbatopshot.com/',
+            'sec-ch-ua': '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
+            'x-id-token': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9EQkVPRGxDUXpWR1JVUXhSRUl5UkRRNE1rVTJNekkzTlVaR1JUWkNPRFJCUkRZNU9URXhOUSJ9.eyJnaXZlbl9uYW1lIjoiam9zaHVhIiwiZmFtaWx5X25hbWUiOiJkZWZlc2NoZSIsIm5pY2tuYW1lIjoiam9zaHVhLmRlZmVzY2hlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYmxtIiwibmFtZSI6Impvc2h1YSBkZWZlc2NoZSIsInBpY3R1cmUiOiJodHRwczovL3N0b3JhZ2UuZ29vZ2xlYXBpcy5jb20vZGFwcGVyLXByb2ZpbGUtaWNvbnMvYXZhdGFyLWRlZmF1bHQucG5nIiwibG9jYWxlIjoiZW4iLCJ1cGRhdGVkX2F0IjoiMjAyMS0wMy0xMFQwOToyMTo1MS43NTZaIiwiZW1haWwiOiJqb3NodWEuZGVmZXNjaGVAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vYXV0aC5tZWV0ZGFwcGVyLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMTE3MTQ2NTc3ODE2MDAzNjg5NSIsImF1ZCI6Ijc1NktDdmlpdTZWQVMxbmJldGpVams2NE9jWjBZdjhyIiwiaWF0IjoxNjE1ODcwNDUwLCJleHAiOjE2MTU4NzEzNTB9.ctU2LLT1bLWZda34jaWDBtRvD-HZkuQwqZFLjelL69HoWw5HfLVwVlrwwlp19GbO1wO11H4x_J3Yb6WWVDzYpIBkT2tatwio0Ggxk9dPFXZaKY5ww8mefIuT2x5iINUrlRUOxAkvwZthDGU8yGEYHqoNz4T2hFKkTJ-oJtJCDZR2O_1j8duHnLK8qijMeuKYDKpvBPABsgVMFy8dzUcSZR_9y3X_rzl5wr5OuqdHYknYz0TYiuR10Y2Ufc8omSbyc4u6nhTqGWo3S3RNYNStOGN1H36EE1xutxo4w519InVCmuKMRfPE2TNCOmLGI0ooRxkvHcx7oppeHsNBWqevCg'
+        }
+        dataPayload = """{"operationName":"SearchMintedMoments","variables":{"sortBy":"ACQUIRED_AT_DESC","byOwnerDapperID":[\"""" + dapperId + """\"],"bySets":[],"bySeries":[],"bySetVisuals":[],"byPlayers":[],"byPlays":[],"byTeams":[],"byForSale":null,"searchInput":{"pagination":{"cursor":"","direction":"RIGHT","limit":12}}},"query":"query SearchMintedMoments($sortBy: MintedMomentSortType, $byOwnerDapperID: [String], $bySets: [ID], $bySeries: [ID], $bySetVisuals: [VisualIdType], $byPlayers: [ID], $byPlays: [ID], $byTeams: [ID], $byForSale: ForSaleFilter, $searchInput: BaseSearchInput!) {  searchMintedMoments(input: {sortBy: $sortBy, filters: {byOwnerDapperID: $byOwnerDapperID, bySets: $bySets, bySeries: $bySeries, bySetVisuals: $bySetVisuals, byPlayers: $byPlayers, byPlays: $byPlays, byTeams: $byTeams, byForSale: $byForSale}, searchInput: $searchInput}) {    data {      sortBy      filters {        byOwnerDapperID        bySets        bySeries        bySetVisuals        byPlayers        byPlays        byTeams        byForSale        __typename      }      searchSummary {        count {          count          __typename        }        pagination {          leftCursor          rightCursor          __typename        }        data {          ... on MintedMoments {            size            data {              ...MomentDetails              __typename            }            __typename          }          __typename        }        __typename      }      __typename    }    __typename  }}fragment MomentDetails on MintedMoment {  id  version  sortID  set {    id    flowName    flowSeriesNumber    setVisualId    __typename  }  setPlay {    ID    flowRetired    circulationCount    __typename  }  assetPathPrefix  play {    id    stats {      playerID      playerName      primaryPosition      teamAtMomentNbaId      teamAtMoment      dateOfMoment      playCategory      __typename    }    __typename  }  price  listingOrderID  flowId  owner {    dapperID    username    profileImageUrl    __typename  }  flowSerialNumber  forSale  __typename}"}"""
+        r = requests.post("https://api.nbatopshot.com/marketplace/graphql?SearchMintedMoments", headers=headers,
+                          data=dataPayload)
+        user_moments = json.loads(r.text)['data']['searchMintedMoments']['data']['searchSummary']['data']
+
+
+        momentDataStriped = [
+            {"id": x["id"] + ":" + str(x['flowSerialNumber']) + "/" + str(x['setPlay']['circulationCount']),
+             "idMAIN": x["setPlay"]["ID"] + ":" + str(x['flowSerialNumber']) + "/" + str(
+                 x['setPlay']['circulationCount']), "assetPrefix": x['assetPathPrefix'],
+             "serialNumber": x['flowSerialNumber'],
+             "serialNumberCap": x['setPlay']['circulationCount'],
+             "name": x['play']['stats']['playerName'] + " - " + x['set']['flowName'] + " (Series " + str(
+                 x['set']['flowSeriesNumber']) + ")",
+             "date": "%s-%s-%s" % (
+             datetime.datetime.strptime(x['play']['stats']['dateOfMoment'], "%Y-%m-%dT%H:%M:%SZ").year,
+             datetime.datetime.strptime(x['play']['stats']['dateOfMoment'], "%Y-%m-%dT%H:%M:%SZ").month,
+             datetime.datetime.strptime(x['play']['stats']['dateOfMoment'], "%Y-%m-%dT%H:%M:%SZ").day)} for x in
+            user_moments['data']]
+        for moment in momentDataStriped:
+            if moment['id'] == id:
+                return True
+        return False
 
 class queue:
     def send_moment(self, listing_id, moment_id, withdraw_account, moment_serial, owner):

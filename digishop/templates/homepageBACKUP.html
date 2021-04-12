@@ -1,0 +1,476 @@
+<html>
+   <head>
+      <title>Home - DigiShop</title>
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+         body{
+         font-family: 'Alata', sans-serif;
+         }
+         h1{
+         text-align:center;
+         }
+         h2{
+         text-align:center;
+         }
+
+         #bar-seg-1{
+         width:50%;
+         height: 100%;
+         float:left;
+         border:0;
+         margin: 0;
+         padding:0;
+         padding-left: 15px;
+         outline: none;
+         background-color: transparent;
+         }
+         .search-area{
+         z-index: 999;
+         }
+         #bar-seg-2{
+         width:50%;
+         height: 100%;
+         float:right;
+         border:0;
+         margin: 0;
+         padding:0;
+         padding-left: 15px;
+         outline: none;
+         background-color: transparent;
+         }
+         .home-body{
+
+         }
+         #suggestions-box{
+         background-color: white;
+         z-index: 999;
+         width: 40%;
+         margin-left: auto;
+         margin-right: auto;
+         min-width: 500px;
+         height: auto;
+         max-height: 500px;
+         overflow: auto;
+         }
+         .suggestion:hover{
+             background-color: #919191;
+         }
+         .suggestion-moment:hover{
+             background-color: #919191;
+         }
+         .suggestion-moment-copy{
+         }
+         .loader {
+         margin-top: 15px;
+         margin-left: auto;
+         margin-right: auto;
+         border: 8px solid white;
+         border-top: 8px solid black;
+         border-bottom: 8px solid black;
+         border-radius: 50%;
+         width: 32px;
+         height: 32px;
+         animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+         }
+         @keyframes spin {
+         0% { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+         }
+      </style>
+         <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,800&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            margin: 0;
+            min-width: 500px;
+        /*
+            {% load static %}
+            background-image: url("{% static "v05-cube-19.jpg" %}");
+            background-size: 350px 256px;
+
+         */
+        }
+
+        .navbar-container {
+            width: 100%;
+            height: auto;
+            display: flex;
+        }
+
+        #title {
+            font-weight: 900;
+            font-style: italic;
+            padding-left: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+            height: auto;
+            font-size: 2em;
+        }
+
+        #search-bar {
+            font-family: 'Alata', sans-serif;
+            border-radius: 5px;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: auto;
+            margin-right: auto;
+            height: 4em;
+            width: 50%;
+            min-width: 125px;
+            flex-grow: 1;
+            border: solid 1px black;
+            background-color: white;
+            transform: translateY(-50%);
+        }
+
+        #bar-seg-1 {
+            font-family: 'Alata', sans-serif;
+            font-size: 1em;
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #bar-seg-2 {
+            font-family: 'Alata', sans-serif;
+            font-size: 1em;
+            border-radius: 5px;
+            outline: none;
+            width: 49%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            padding-left: 10px;
+        }
+
+        #user-account {
+            float: right;
+           margin-left: auto;
+            height: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        #user-account img {
+            height: 3em;
+        }
+        #banner{
+            width: 70%;
+font-family: 'Alata', sans-serif;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            border-radius: 20px;
+
+        }
+
+        #suggestions-box {
+            text-align: center;
+            width: 80%;
+            margin-left: 10%;
+            height: auto;
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .suggestion {
+        }
+          .moment{
+      padding: 15px 15px 15px 15px;
+      border: solid 3px #adadad;
+      border-radius: 10px;
+      width: 150px;
+      margin-left: 5px;
+      margin-right: 5px;
+      backgorund-color: white;
+  }
+          .moment p{
+        text-align:center;
+  }
+          .hero-image {
+            width: 90%;
+              margin-left: 50%;
+              transform: translateX(-50%);
+}
+  .moment:hover{
+      padding: 15px 15px 15px 15px;
+      border: solid 3px grey;
+      border-radius: 10px;
+  }
+  #listing-section{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+  }
+#promoted-listings{
+    margin-top: 50px;
+}
+        .loader {
+            margin-top: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 8px solid white;
+            border-top: 8px solid black;
+            border-bottom: 8px solid black;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 2s cubic-bezier(0.71, 0.3, 0.3, 0.71) infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function moment_search() {
+            var name = $("#bar-seg-1").val()
+            $("#suggestions-box").html("<div class=\"loader\"></div>")
+            if ($("#bar-seg-2").length) {
+            } else {
+                $("<input type='text' id='bar-seg-2' placeholder='Search for Moments'>").appendTo("#search-bar")
+            }
+            name = $("#bar-seg-1").val()
+            $.ajax({
+                url: "/query/",
+                data: {
+                    "request": "nameMoments",
+                    "name": name
+                },
+                success: function (result) {
+                    var i;
+                    var newResults = []
+                    var newResultsIds = []
+                    for (i = 0; i < result.length; i++) {
+                        newResults.push(result[i]['playCategory'] + " | " + result[i]['playTeam'] + " | " + result[i]['playDate'] + " | " + result[i]['playType'] + " | Series " + result[i]['playSeries'])
+                        newResultsIds.push(result[i]['playId'])
+                    }
+                    var htmlSting = ""
+                    for (i = 0; i < newResults.length; i++) {
+                        if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                            htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                        }
+                    }
+                    $("#suggestions-box").html(htmlSting)
+                    $(".suggestion-moment").click(function () {
+                        $("#bar-seg-2").val($(this).find("p").html())
+                        window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                    })
+                    $("div").click(function () {
+                        if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                            $("#suggestions-box").html("")
+                        }
+                    })
+                    $("#bar-seg-2").click(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                    $("#bar-seg-2").keyup(function () {
+                        var htmlSting = ""
+                        for (i = 0; i < newResults.length; i++) {
+                            if (newResults[i].toLowerCase().includes($("#bar-seg-2").val().toLowerCase()) == true) {
+                                htmlSting += '<div id="' + newResultsIds[i] + '" class="suggestion-moment"><p>' + newResults[i] + '</p></div>'
+                            }
+                        }
+                        $("#suggestions-box").html(htmlSting)
+                        $(".suggestion-moment").click(function () {
+                            $("#bar-seg-2").val($(this).find("p").html())
+                            window.location.href = "/moment/?momentId=" + $(this).attr("id")
+                        })
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                    })
+                }
+            })
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://127.0.0.1:8000/query/",
+                data: {
+                    "request": "allNames"
+                },
+                success: function (result) {
+                    var nameList = result.split(";");
+                    $("#bar-seg-1").click(function () {
+                        var i;
+                        htmlString = ""
+                        for (i = 0; i < nameList.length; i++) {
+                            htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                        }
+                        if (htmlString == "") {
+                            htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                        }
+                        $("#suggestions-box").html(htmlString)
+
+                        $(".suggestion").click(function () {
+                            $("#bar-seg-1").val($(this).find("p").html())
+                            moment_search()
+                        })
+
+                        $("div").click(function () {
+                            if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                $("#suggestions-box").html("")
+                            }
+                        })
+                        $("#bar-seg-1").keyup(function () {
+                            var i;
+                            htmlString = ""
+                            for (i = 0; i < nameList.length; i++) {
+                                if (nameList[i].toLowerCase().includes($("#bar-seg-1").val().toLowerCase()) == true) {
+                                    htmlString += '<div class="suggestion"><p>' + nameList[i] + '</p></div>'
+                                }
+                            }
+                            if (htmlString == "") {
+                                htmlString = "<div class='suggestion-moment-copy'><p>No players found</p></div>"
+                            }
+                            $("#suggestions-box").html(htmlString)
+                            $(".suggestion").click(function () {
+                                $("#bar-seg-1").val($(this).find("p").html())
+                                moment_search()
+                            })
+                            $("div").click(function () {
+                                if ($(this).attr("id") != "suggestions-box" && $(this).attr("id") != "search-bar" && $(this).attr("class") != "navbar-container") {
+
+                                    $("#suggestions-box").html("")
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        })
+
+    </script>
+         <script>
+        $(document).ready(function () {
+            $("#user-account").click(function () {
+                window.location.href = "/account/"
+            })
+            var type = "{{userAccountImage}}"
+            if (type == "loggedIn"){
+                $("#user-account").html("<img src=\"https://storage.googleapis.com/dapper-profile-icons/avatar-default.png\">")
+            }
+            if (type == "loggedOut"){
+                $("#user-account").html("<h2>Log In</h2>")
+            }
+        })
+
+    </script>
+       <script>
+           $(document).ready(function(){
+               $.ajax({
+                   url: '/query/listings/',
+                   success: function(result){
+                       var i;
+                       for (i=0;i<result.length;i++){
+                           $(`<div id="${result[i]['id']}" class='moment'>
+<img class="hero-image" src="${result[i]['image']}">
+<p>${result[i]['name']}</p>
+<p>${result[i]['date']}</p>
+<p>${result[i]['serial']}</p>
+<p>$${result[i]['price']}</p>
+</div>`).appendTo("#listing-section")
+                       }
+                       $(".moment").click(function(){
+                           window.location.href = '/moment/?momentId='+$(this).attr("id")
+                       })
+                   }
+               })
+           })
+       </script>
+       <style>
+           .title-logo{
+               margin-top: 20px;
+               height: 100px;
+               margin-left: 30px;
+               margin-bottom: 30px;
+           }
+       </style>
+   </head>
+   <body>
+
+      <div class="home-body">
+             <div class="navbar-container">
+    <div id="title">
+        {% load static %}
+        <img class="title-logo" src="{% static "logo.png" %}">
+    </div>
+
+    <div id="user-account">
+
+    </div>
+</div>
+          <h1>Buy and Sell your TopShot Moments at DigiShop!</h1>
+          <img id="banner" src="https://www.playtoearn.online/wp-content/uploads/2021/01/NBA-Top-Shot-ad-banner-1024x192.png">
+         <div class="search-area">
+            <div id="search-bar">
+               <input type="text" id="bar-seg-1" placeholder="Search Players">
+            </div>
+            <div id="suggestions-box"></div>
+         </div>
+
+
+
+            <div id="promoted-listings">
+                <h2>Recent Listings</h2>
+                <div id="listing-section">
+
+                </div>
+
+            </div>
+
+
+
+
+      </div>
+      <style>
+         #bottom-text{
+            font-size: 0.75em;
+            text-align:center;
+            margin-bottom: 0px;
+        }
+      </style>
+   <p id="bottom-text">
+2021&#169; Digishop LLC - <a href="/aboutus/">About Us</a> - <a href="/terms/">Terms</a> - <a href="/privacy/">Privacy Policy</a>
+</p>
+   </body>
+</html>

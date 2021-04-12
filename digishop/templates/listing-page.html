@@ -8,6 +8,7 @@
   body{
       font-family: 'Alata', sans-serif;
     margin: 0;
+      background-color: #f0f0f0;
   }
   #left-side{
       padding-top:20px;
@@ -82,30 +83,76 @@
   .hero-image{
       width: 96px;
   }
-  .moment{
-      padding: 15px 15px 15px 15px;
-      margin-top: 30px;
-      border: solid 2px #adadad;
+.moment{
+      border: solid 6px #D4AF37;
       border-radius: 10px;
-      width: 150px;
-      margin-left: 5px;
-      margin-right: 5px;
+      width: 200px;
+      font-family: 'Alata', sans-serif;
+      background-color: #060030;
+      color: white;
+      padding-bottom: 5px;
+      transition: 0.3s;
+    margin: 25px 25px 25px 25px;
   }
   .moment:hover{
-      padding: 15px 15px 15px 15px;
-      margin-top: 30px;
-      border: solid 2px grey;
-      border-radius: 10px;
+      transform: scale(1.05);
   }
 
+.moment-player-name{
+  padding: 10px 0px 5px 10px;
+  text-align: left;
+  font-size: 1em;
+}
+.moment-image-row{
+  background-color: black;
+  width:90%;
+  margin-left: 5%;
+  border-radius: 5px;
+  border: solid 2px white;
+
+}
+.moment-image{
+  height: 125px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+}
+.row{
+  width: 100%;
+  display: flex;
+  font-size: 0.85em;
+}
+.row-t-1{
+  width: 40%;
+  padding-left: 20px;
+  margin-top: 1px;
+}
+.row-t-2{
+   width: 40%;
+  text-align:right;
+  margin-top: 1px;
+}
+.series-container{
+
+  color: black;
+  width: fit-content;
+  border-radius: 2px;
+  height: 1.5em;
+  font-size: 0.85em;
+  background: #D4AF37;
+background: linear-gradient(to bottom, #D4AF37 0%, #C5A028 100%);
+
+  padding: 3px 3px 3px 3px;
+  text-align:center;
+  float: right;
+  margin-right: 15px;
+  transform: skewX(-15deg) translateY(-50%);
+
+
+}
+
   .selected{
-      padding: 15px 15px 15px 15px;
-      margin-top: 30px;
-      border: solid 2px black;
-      border-radius: 10px;
       width: 340px;
-      margin-left: 5px;
-      margin-right: 5px;
   }
   .selected2{
       padding: 15px 15px 15px 15px;
@@ -118,12 +165,25 @@
     display: flex;
       flex-wrap: wrap;
       width: 100%;
+      justify-content: space-around;
   }
   #listing-username-input{
       width: 250px;
   }
   #next-step-moment-select{
+            font-family: 'Alata', sans-serif;
+
       margin-top: 15px;
+      margin-left: 50%;
+      margin-bottom: 15px;
+      transform: translateX(-50%);
+      background-color: #47B0DE;
+      color: white;
+      min-width: 150px;
+      height: 50px;
+      border: 0;
+      border-radius: 5px;
+
   }
   #send-to-username-box{
       padding: 10px 25px 10px 25px;
@@ -325,7 +385,9 @@
                     method: "post",
                     data: {
                         "csrfmiddlewaretoken": '{{ csrf_token }}',
-                        "finalPrice": $("#list-price-input").val()
+                        "finalPrice": $("#list-price-input").val(),
+                        "momentId": $("#momentid-keeper").val(),
+                        "distinctMomentId": $("#distinctmomentid-keeper").val(),
                     },
                     success: function(result){
                         if (result['status'] == "success"){
@@ -340,66 +402,17 @@
             })
         }
     </script>
-    <script>
-        function step2(id, idMAIN){
-            $.ajax({
-                url: '/listing/await/moment/',
-                method: "POST",
-                data: {
-                    "csrfmiddlewaretoken": '{{ csrf_token }}',
-                    "listing-moment-id": id,
-                    "listing-moment-idMAIN": idMAIN
-                },
-                success: function(result){
-                    $("#step-information").html(`<h2>Send your item to the username below</h2>
-<h3>You have 5 minutes before the listing is cancelled</h3>
-<div id="send-to-username-box"><p>${result['name']}</p></div>
-<div class="selected2">
-<img class="hero-image" src="${$("#img-keeper").val()}">
-<p class="namesa">${$("#name-keeper").val()}</p>
-<p class="datesa">${$("#date-keeper").val()}</p>
-<p class="raresa">${$("#rare-keeper").val()}</p>
-</div>
-<div id="next-step-container"><div class="loader"></div></div></div>`)
 
-                var intervalFunc = setInterval(function(){
-                    $.ajax({
-                        url: "/listing/await/moment/check/",
-                        success: function(result){
-                            if (result['await'] == false){
-                                clearInterval(intervalFunc);
-                                $("#next-step-container").html("<h2>"+result['message']+"</h2>")
-                                if (result['received'] == true){
-                                    $(`<button id="next-step-moment-send">Next Step</button>`).appendTo("#next-step-container")
-                                    $("#next-step-moment-send").click(function(){
-                                      $("#section1").attr("class", "active")
-                                      $("#section1-2").attr("class", "active")
-                                      $("#section2").attr("class", "active")
-                                      $("#section2-3").attr("class", "active")
-                                      $("#section3").attr("class", "active awaiting")
-                                        $("#step-information").html('<div class="loader"></div>')
-                                        step3();
-
-                                    })
-                                }
-                            }
-
-                        },
-                        error: function(){
-                            clearInterval(intervalFunc);
-                        }
-                    })
-                }, 5000);
-
-                }
-            })
-        }
-    </script>
   <script>
   $(document).ready(function(){
 
 
       $("#listing-username-post").click(function(){
+          $("#section1").attr("class", "active")
+          $("#section1-2").attr("class", "active")
+          $("#section2").attr("class", "active awaiting")
+          $("#section2-3").attr("class", "inactive")
+          $("#section3").attr("class", "inactive")
           $("#listing-username-moment-select").html('<div class="loader"></div>')
           $.ajax({
               url: "/listing/username/",
@@ -408,19 +421,43 @@
                   "listing-username-input": $("#listing-username-input").val()
               },
               success: function(result){
+
                   $("#spare-container").html('<h3>Search for players</h3><input type="text" id="moment-filter">')
                   $("#moment-filter").keyup(function(){
 
                       $("#listing-username-moment-select").html('')
+
                   var i;
                   for (i=0;i<result['user'].length;i++){
                       if (result['user'][i]['name'].toLowerCase().includes($(this).val().toLowerCase()) == true){
+
                           $(`<div data-id="${result['user'][i]['idMAIN']}" id="${result['user'][i]['id']}" class="moment">
-<img class="hero-image" src="${result['user'][i]['assetPrefix']}Hero_2880_2880_Black.jpg">
-<p class="namesa">${result['user'][i]['name']}</p>
-<p class="datesa">${result['user'][i]['date']}</p>
-<p class="raresa">${result['user'][i]['serialNumber']}/${result['user'][i]['serialNumberCap']}</p>
-<div class="next-step-container"></div>
+<div class="moment-player-name">
+  ${result['user'][i]['name']}
+  </div>
+  <div class="moment-image-row">
+  <img class="moment-image" src="${result['user'][i]['image']}">
+  </div>
+  <div class="series-container ">
+    ${result['user'][i]['serial']}
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result['user'][i]['type']}
+    </p>
+    <p class="row-t-2">
+    ${result['user'][i]['date']}
+    </p>
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result['user'][i]['set']}
+    </p>
+    <p class="row-t-2">
+    ${result['user'][i]['series']}
+    </p>
+  </div>
+  <div class="next-step-container"></div>
 </div>`).appendTo("#listing-username-moment-select")
                       }
 
@@ -428,22 +465,26 @@
 
 
                       $(".moment").click(function(){
+
                       $(".next-step-container").html("")
                       $(this).find(".next-step-container").html('<button id="next-step-moment-select">Select Moment</button>')
                       $(".selected").attr("class", "moment")
-                      $(this).attr("class","selected")
+                      $(this).attr("class","moment selected")
                       $("#next-step-moment-select").click(function (){
                           $("#section1").attr("class", "active")
                           $("#section1-2").attr("class", "active")
-                          $("#section2").attr("class", "active awaiting")
-                          $("#section2-3").attr("class", "inactive")
-                          $("#section3").attr("class", "inactive")
-                          $("#step-information").html("<div class='loader'></div>")
-                          $("#img-keeper").val($(this).parent().parent().find(".hero-image").attr("src"))
-                          $("#name-keeper").val($(this).parent().parent().find(".namesa").html())
-                          $("#date-keeper").val($(this).parent().parent().find(".datesa").html())
-                          $("#rare-keeper").val($(this).parent().parent().find(".raresa").html())
-                          step2($(this).parent().parent().attr("id"),$(this).parent().parent().attr("data-id"))
+                          $("#section2").attr("class", "active")
+                          $("#section2-3").attr("class", "active")
+                          $("#section3").attr("class", "active awaiting")
+
+                          //$("#step-information").html("<div class='loader'></div>")
+                          //$("#img-keeper").val($(this).parent().parent().find(".hero-image").attr("src"))
+                          //$("#name-keeper").val($(this).parent().parent().find(".namesa").html())
+                          //$("#date-keeper").val($(this).parent().parent().find(".datesa").html())
+                          //$("#rare-keeper").val($(this).parent().parent().find(".raresa").html())
+                          $("#momentid-keeper").val($(this).parent().parent().attr("data-id"))
+                          $("#distinctmomentid-keeper").val($(this).parent().parent().attr("id"))
+                          step3()
                       })
                   })
                   })
@@ -451,30 +492,56 @@
                   var i;
                   for (i=0;i<result['user'].length;i++){
                         $(`<div data-id="${result['user'][i]['idMAIN']}" id="${result['user'][i]['id']}" class="moment">
-<img class="hero-image" src="${result['user'][i]['assetPrefix']}Hero_2880_2880_Black.jpg">
-<p class="namesa">${result['user'][i]['name']}</p>
-<p class="datesa">${result['user'][i]['date']}</p>
-<p class="raresa">${result['user'][i]['serialNumber']}/${result['user'][i]['serialNumberCap']}</p>
-<div class="next-step-container"></div>
+<div class="moment-player-name">
+  ${result['user'][i]['name']}
+  </div>
+  <div class="moment-image-row">
+  <img class="moment-image" src="${result['user'][i]['image']}">
+  </div>
+  <div class="series-container ">
+    ${result['user'][i]['serial']}
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result['user'][i]['type']}
+    </p>
+    <p class="row-t-2">
+    ${result['user'][i]['date']}
+    </p>
+  </div>
+  <div class="row">
+    <p class="row-t-1">
+    ${result['user'][i]['set']}
+    </p>
+    <p class="row-t-2">
+    ${result['user'][i]['series']}
+    </p>
+  </div>
+  <div class="next-step-container"></div>
 </div>`).appendTo("#listing-username-moment-select")
+                  }
+                  if (result['status'] != true){
+                      $("#listing-username-moment-select").html(`<h1>${result['status']}</h1>`)
                   }
                   $(".moment").click(function(){
                       $(".next-step-container").html("")
                       $(this).find(".next-step-container").html('<button id="next-step-moment-select">Select Moment</button>')
                       $(".selected").attr("class", "moment")
-                      $(this).attr("class","selected")
+                      $(this).attr("class","moment selected")
                       $("#next-step-moment-select").click(function (){
                           $("#section1").attr("class", "active")
                           $("#section1-2").attr("class", "active")
-                          $("#section2").attr("class", "active awaiting")
-                          $("#section2-3").attr("class", "inactive")
-                          $("#section3").attr("class", "inactive")
+                          $("#section2").attr("class", "active")
+                          $("#section2-3").attr("class", "active")
+                          $("#section3").attr("class", "active awaiting")
                           $("#step-information").html("<div class='loader'></div>")
                           $("#img-keeper").val($(this).parent().parent().find(".hero-image").attr("src"))
                           $("#name-keeper").val($(this).parent().parent().find(".namesa").html())
                           $("#date-keeper").val($(this).parent().parent().find(".datesa").html())
                           $("#rare-keeper").val($(this).parent().parent().find(".raresa").html())
-                          step2($(this).parent().parent().attr("id"),$(this).parent().parent().attr("data-id"))
+                          $("#momentid-keeper").val($(this).parent().parent().attr("data-id"))
+                          $("#distinctmomentid-keeper").val($(this).parent().parent().attr("id"))
+                          step3()
                       })
                   })
               }
@@ -635,15 +702,26 @@
         })
 
     </script>
+      <style>
+           .title-logo{
+               margin-top: 20px;
+               height: 100px;
+               margin-left: 30px;
+               margin-bottom: 30px;
+           }
+       </style>
 </head>
 <body>
 <input type="hidden" id="img-keeper">
 <input type="hidden" id="name-keeper">
 <input type="hidden" id="date-keeper">
 <input type="hidden" id="rare-keeper">
+<input type="hidden" id="momentid-keeper">
+<input type="hidden" id="distinctmomentid-keeper">
 <div class="navbar-container">
     <div id="title">
-        <p>DigiShop</p>
+        {% load static %}
+        <img class="title-logo" src="{% static "logo.png" %}">
     </div>
     <div id="search-bar">
         <input id="bar-seg-1" placeholder="Search Players">
@@ -661,6 +739,8 @@
         <div id="section2" class="inactive"></div>
         <div id="section2-3" class="inactive"></div>
          <div id="section3" class="inactive"></div>
+
+
   </div>
   <div id="right-side">
     <h1>List Your Moments</h1>
